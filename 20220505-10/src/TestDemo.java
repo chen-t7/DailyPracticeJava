@@ -1,4 +1,6 @@
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,7 +10,197 @@ import java.lang.reflect.Field;
  * Time: 17:45
  */
 public class TestDemo {
-    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
+
+
+    public static void main(String[] args) {
+        String str = "          abc   defg       ";
+        String ret = str.trim();//去除str两边的空格
+        System.out.println(ret);
+        System.out.println("==========");
+
+        String str2 = "abcdEFG哈哈哈&*%%";
+        String ret2 = str2.toUpperCase();
+        System.out.println(ret2);
+        System.out.println(str2.toLowerCase());
+        System.out.println("==========");
+
+        String str3 = "abcdef";
+        String ret3 =  str3.concat("hhhhhhh");
+        System.out.println(ret3);
+        System.out.println("==========");
+
+        System.out.println(str.length());//区分和数组的length，一个是属性，一个是方法
+        int[] array = {1,2,3,4,5};
+        System.out.println(array.length);//Java里的数字 非常特殊 机制很多
+        System.out.println("==========");
+
+        String str4 = "   ";
+        System.out.println(str4.isEmpty());
+
+    }
+
+    public static void main20(String[] args) {
+        String str = "abcd";
+        String sub = str.substring(2);//提取子串
+        System.out.println(sub);
+        String sub2 = str.substring(1,2);
+        System.out.println(sub2);
+    }
+
+    public static void main19(String[] args) {
+        String str = "192.168.1.1";
+        String[] strings =  str.split("\\.");
+        for (String s: strings) {
+            System.out.println(s);
+        }
+
+        String[] strings2 =  str.split("\\.", 2);
+        for (String s: strings2) {
+            System.out.println(s);
+        }
+        System.out.println("============");
+
+        String str2 = "192\\168\\1\\1";
+        String[] strings3 =  str2.split("\\\\", 7);
+        for (String s: strings3) {
+            System.out.println(s);
+        }
+        System.out.println("============");
+
+        String str3 = "Java30 12&21#hello";
+        String[] strings4 = str3.split(" |&|#");
+        for (String s: strings4) {
+            System.out.println(s);
+        }
+    }
+
+    public static void main18(String[] args) {
+        String str = "name=zhangsan&age=12";
+        String[] strings = str.split("&");
+        for (String s:strings) {
+            String[] ss = s.split("=");
+            for (String tmp:ss) {
+                System.out.println(tmp);
+            }
+        }
+    }
+
+    public static void main17(String[] args) {
+        String str = "abcdabcd";
+        //把str中所有的字符a替换成字符t
+        String s = str.replace('a', 't');
+        System.out.println(s);
+        System.out.println("========");
+
+        String s2 = str.replace("ab", "pp");
+        System.out.println(s2);
+        System.out.println("========");
+
+        String s3 = str.replaceAll("ab", "pp");
+        System.out.println(s3);
+        System.out.println("========");
+
+        String s4 = str.replaceFirst("ab", "pp");
+        System.out.println(s4);
+        System.out.println("========");
+    }
+
+    public static void main16(String[] args) {
+        String str = "abcdabcd";
+        String tmp = "abc";
+        boolean flg = str.contains(tmp);
+        System.out.println(flg);
+        System.out.println("========");
+
+        int index = str.indexOf(tmp);
+        System.out.println(index);
+        int index2 = str.indexOf(tmp, 3);
+        System.out.println(index2);
+        System.out.println("========");
+
+        int index3 = str.lastIndexOf(tmp);
+        System.out.println(index3);
+        System.out.println(str.lastIndexOf(tmp, 3));
+        System.out.println("========");
+
+        System.out.println(str.startsWith("a"));
+        System.out.println(str.startsWith("d"));
+        System.out.println(str.startsWith("d", 3));
+        System.out.println(str.endsWith("cd"));
+        System.out.println(str.endsWith("cde"));
+    }
+
+    public static void main15(String[] args) {
+        //比较
+        String str1 = "abcdef";
+        String str2 = "hello";
+        System.out.println(str1.equals(str2));
+        System.out.println("========================");
+
+        String str3 = "Adc";
+        String str4 = "adc";
+        System.out.println(str3.equalsIgnoreCase(str4));
+
+        int ret = str3.compareTo(str4);//返回值： >0(str3字符串大于str4)  <0  ==0
+        System.out.println(ret);
+    }
+
+    public static void main14(String[] args) throws UnsupportedEncodingException {
+        byte[] bytes = {97,98,99,100};//把这些数字转换为该数字对应的阿斯克码
+        String str = new String(bytes);
+        System.out.println(str);
+
+        String str2 = new String(bytes,1,3);
+        System.out.println(str2);
+
+        String str3 = "陈";
+        byte[] bytes1 = str3.getBytes();
+        System.out.println(Arrays.toString(bytes1));
+
+        byte[] bytes2 = str3.getBytes("GBK");
+        System.out.println(Arrays.toString(bytes2));
+    }
+
+    public static boolean IsNumChar(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            /*
+            if (c < '0' || c > '9') {
+                return false;
+            }
+             */
+            if (Character.isDigit(c) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main13(String[] args) {
+        String str = "123s45";
+        System.out.println(IsNumChar(str));
+    }
+
+    public static void main12(String[] args) {
+        char[] val = {'a', 'b', 'c', 'd', 'e', 'f'};
+        String str = new String(val);
+        System.out.println(str);
+
+        String str2 = new String(val, 1, 3);
+        System.out.println(str2);
+        System.out.println("==============");
+
+        String str3 = "hello";
+        char ch =  str3.charAt(2);//获取到2下标的字符
+        System.out.println(ch);
+
+        char[] chars =  str3.toCharArray();//把str3指向的字符串对象变成字符数组
+        System.out.println(Arrays.toString(chars));
+
+
+    }
+
+    public static void main11(String[] args) throws NoSuchFieldException, IllegalAccessException {
         String str = "abcde";
         Class<?> c1 = String.class;
         // 获取 String 类中的 value 字段. 这个 value 和 String 源码中的 value 是匹配的.
