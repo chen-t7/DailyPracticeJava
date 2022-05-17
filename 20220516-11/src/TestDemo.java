@@ -21,7 +21,8 @@ class  Person implements Cloneable {
 
 public class TestDemo {
 
-    public static void main(String[] args) {
+
+    public static void main15(String[] args) {
         System.out.println(readFile());
     }
 
