@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.Callable;
 
@@ -9,6 +10,32 @@ import java.util.concurrent.Callable;
  * Time: 15:49
  */
 public class TestDemo {
+    public static void main(String[] args) {
+        Map<String, String> map2 = new TreeMap<>();
+        map2.put("聪明的", "喜羊羊");
+        map2.put("美丽的", "美羊羊");
+        System.out.println(map2);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("聪明的", "喜羊羊");
+        map.put("美丽的", "美羊羊");
+        System.out.println(map);
+    }
+
+    public static void main4(String[] args) {
+        Map<String, String> map = new HashMap<>();
+        map.put("聪明的", "喜羊羊");
+        map.put("美丽的", "美羊羊");
+        System.out.println(map);
+        System.out.println("============");
+        Set<Map.Entry<String, String>> entrySet = map.entrySet();
+        for (Map.Entry<String, String> entry : entrySet) {
+            System.out.println("key:" + entry.getKey() + "  value:" + entry.getValue());
+        }
+
+
+    }
+
     public static void main3(String[] args) {
         Map<String, String> map = new HashMap<>();
         map.put("聪明的", "喜羊羊");
