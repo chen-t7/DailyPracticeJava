@@ -21,12 +21,12 @@ import java.util.ArrayList;
  *                          2.指定类型之后，是不是就是能放指定类型的数据呢？
  *                          3.取出数据能不能不要进行转换？
  */
-class MyArrayList {
+class MyArrayList1 {
     //private int[] elem;
     private Object[] elem;
     private int userSize;
 
-    public MyArrayList() {
+    public MyArrayList1() {
         this.elem = new Object[10];
     }
 
@@ -119,7 +119,7 @@ public class TestDemo {
     }
 
     public static void main1(String[] args) {
-        MyArrayList myArrayList = new MyArrayList();
+        MyArrayList1 myArrayList = new MyArrayList1();
 
         myArrayList.add(1);
         myArrayList.add("hello");
