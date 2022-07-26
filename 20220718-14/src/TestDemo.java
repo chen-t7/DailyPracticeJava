@@ -1,3 +1,6 @@
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -9,6 +12,45 @@ import java.util.Stack;
  */
 public class TestDemo {
     public static void main(String[] args) {
+        MyQueue myQueue = new MyQueue();
+        myQueue.offer(1);
+        myQueue.offer(2);
+        myQueue.offer(3);
+        System.out.println(myQueue.peek());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+    }
+
+    public static void main5(String[] args) {
+        Deque<Integer> deque = new LinkedList<>();
+        deque.offer(1);//默认队尾入队的
+        deque.offer(2);
+        deque.offerFirst(3);//队头插入
+        deque.addLast(4);;
+        System.out.println(deque.peekFirst());
+        System.out.println(deque.peekLast());
+    }
+
+    public static void main4(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(1);
+        queue.offer(2);
+        System.out.println(queue.peek());//1
+        System.out.println(queue.element());//1
+        System.out.println(queue.poll());//1
+        System.out.println(queue.remove());//2
+    }
+
+    public static void main3(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        Deque<Integer> deque = new LinkedList<>();
+
+        LinkedList<Integer> linkedList = new LinkedList<>();
+    }
+
+    public static void main2(String[] args) {
         MyStack stack = new MyStack();
         stack.push(1);
         stack.push(2);
