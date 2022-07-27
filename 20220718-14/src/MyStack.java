@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,5 +55,71 @@ public class MyStack {
                 "elem=" + Arrays.toString(elem) +
                 ", usedSize=" + usedSize +
                 '}';
+    }
+}
+
+/**
+ * 请你仅使用两个队列实现一个后入先出（LIFO）的栈，并支持普通栈的全部四种操作（push、top、pop 和 empty）。
+ */
+class MyStack1 {
+    public Queue<Integer> queue1;
+    public Queue<Integer> queue2;
+
+    public MyStack1() {
+        queue1 = new LinkedList<>();
+        queue2 = new LinkedList<>();
+    }
+
+    public void push(int x) {
+        if (queue2.isEmpty()) {
+            queue1.offer(x);
+        } else {
+            queue2.offer(x);
+        }
+    }
+
+    public int pop() {
+        if (this.empty()) {
+            return -1;
+        }
+        if (!queue1.isEmpty()) {
+            //如果栈中总共只有一个元素，那么就不插入另一个队列了，直接弹出
+            int size = queue1.size();
+            for (int i = 0; i < size - 1; ++i) {
+                queue2.offer(queue1.poll());
+            }
+            return queue1.poll();
+        } else {
+            int size = queue2.size();
+            for (int i = 0; i < size - 1; ++i) {
+                queue1.offer(queue2.poll());
+            }
+            return queue2.poll();
+        }
+    }
+
+    public int top() {
+        if (this.empty()) {
+            return -1;
+        }
+        int ret = -1;
+        if (!queue1.isEmpty()) {
+            int size = queue1.size();
+            for (int i = 0; i < size; ++i) {
+                ret = queue1.peek();
+                queue2.offer(queue1.poll());
+            }
+        } else {
+            int size = queue2.size();
+            for (int i = 0; i < size; ++i) {
+                ret = queue2.peek();
+                queue1.offer(queue2.poll());
+            }
+        }
+        return ret;
+    }
+
+    public boolean empty() {
+        return queue1.isEmpty() && queue2.isEmpty();
     }
 }
