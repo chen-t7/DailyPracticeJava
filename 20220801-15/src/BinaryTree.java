@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -183,5 +182,77 @@ public class BinaryTree {
         return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
         //不要直接这样return，递归调用的次数太多，会超出时间限制，重复计算了太多次
         //return getHeight(root.left) > getHeight(root.right) ? getHeight(root.left) + 1 : getHeight(root.right) + 1;
+    }
+
+
+    // 查找 val 所在结点，没有找到返回 null
+    // 按照 根 -> 左子树 -> 右子树的顺序进行查找
+    // 一旦找到，立即返回，不需要继续在其他位置查找
+    TreeNode find(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == val) {
+            return root;
+        }
+        TreeNode leftNode = find(root.left,val);
+        TreeNode rightNode = find(root.right,val);
+        return leftNode == null ? rightNode : leftNode;
+    }
+
+    /**
+     * 判断这棵树是不是完全二叉树
+     * @param root
+     * @return
+     */
+    boolean isCompleteTree (TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        /*
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            if (cur != null){
+                queue.add(cur.left);
+                queue.add(cur.right);
+            } else {
+                break;
+            }
+        }
+         */
+        while (queue.peek() != null) {
+            TreeNode cur = queue.peek();
+            queue.offer(cur.left);
+            queue.offer(cur.right);
+            queue.poll();
+        }
+         while (!queue.isEmpty()) {
+             if (queue.poll() != null) {
+                return false;
+             }
+         }
+        return true;
+    }
+
+    /**
+     * 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
+     * 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+     * @param p
+     * @param q
+     * @return
+     */
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q != null || p != null && q == null) {
+            return false;
+        }
+        if (p == null && q == null) {
+            return true;
+        }
+        if (q.val != p.val) {
+            return false;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 }

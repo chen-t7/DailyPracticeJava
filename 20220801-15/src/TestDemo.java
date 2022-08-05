@@ -35,5 +35,16 @@ public class TestDemo {
 
         System.out.println("========整棵树的高度========");
         System.out.println(binaryTree.getHeight(root));
+
+        try {
+            System.out.println(binaryTree.find(root, 't').val);
+            System.out.println(binaryTree.find(root, 'G').val);
+        } catch (NullPointerException e) {
+            System.out.println("空指针异常");
+        }
+
+        binaryTree.isCompleteTree(root);
+        System.out.println("========判断这棵树是否为完全二叉树========");
+        System.out.println(binaryTree.isCompleteTree(root));
     }
 }
