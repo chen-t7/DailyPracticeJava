@@ -19,7 +19,11 @@ class TreeNode{
 public class BinaryTree {
     public TreeNode root;//二叉树的跟根节点
 
-    public TreeNode creatNode() {
+    /**
+     * 穷举的方式创建二叉树
+     * @return
+     */
+    public TreeNode creatNode1() {
         TreeNode A = new TreeNode('A');
         TreeNode B = new TreeNode('B');
         TreeNode C = new TreeNode('C');
@@ -36,6 +40,57 @@ public class BinaryTree {
         C.right = G;
         E.right = H;
         return A;
+    }
+
+    static class TreeNode {
+        public char val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(char val) {
+            this.val = val;
+        }
+    }
+    public static class Main {
+        public static int i = 0;
+
+        /**
+         * 编一个程序，读入用户输入的一串先序遍历字符串，根据此字符串建立一个二叉树（以指针方式存储）.
+         * 例如如下的先序遍历字符串： ABC##DE#G##F### 其中“#”表示的是空格，空格字符代表空树。
+         * 建立起此二叉树以后，再对二叉树进行中序遍历，输出遍历结果。
+         * @param str
+         * @return
+         */
+        public static TreeNode createTree(String str) {
+            TreeNode root = null;
+            if (str.charAt(i) != '#') {
+                root = new TreeNode(str.charAt(i));
+                i++;
+                root.left = createTree(str);
+                root.right = createTree(str);
+            } else {
+                //遇到#号，说明当前节点为空
+                i++;
+            }
+            return root;
+        }
+
+        public static void inorder(TreeNode root) {
+            if (root == null) {
+                return ;
+            }
+            inorder(root.left);
+            System.out.print(root.val + " ");
+            inorder(root.right);
+        }
+
+        public static void main(String[] args) {
+            Scanner in = new Scanner(System.in);
+            while (in.hasNextLine()) {
+                String str = in.nextLine();
+                TreeNode root = createTree(str);
+                inorder(root);
+            }
+        }
     }
 
     //前序遍历
@@ -239,6 +294,7 @@ public class BinaryTree {
     /**
      * 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
      * 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+     * 时间复杂度：O(min(m,n))
      * @param p
      * @param q
      * @return
@@ -254,5 +310,111 @@ public class BinaryTree {
             return false;
         }
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    /**
+     * 给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树。
+     * 如果存在，返回 true ；否则，返回 false 。力扣（LeetCode）
+     * 时间复杂度：O(m*n)
+     * @param root
+     * @param subRoot
+     * @return
+     */
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        //1.先判断两棵树是不是两颗相同的树
+        //2.不是的话判断subRoot是不是root的左子树或者右子树
+        if (root == null || subRoot == null) {
+             return false;
+        }
+        if (isSameTree(root, subRoot)) {
+            return true;
+        }
+        if (isSubtree(root.left, subRoot)){
+            return true;
+        }
+        if (isSubtree(root.right, subRoot)) {
+            return true;
+        }
+        return false;
+    }
+
+    //时间复杂度：O(n)
+    public int height (TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+    }
+    /**
+     * 给定一个二叉树，判断它是否是高度平衡的二叉树。
+     * 本题中，一棵高度平衡二叉树定义为：个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
+     * 时间复杂度：O(N^2)
+     */
+    public boolean isBalanced(TreeNode root) {
+        //一棵树为平衡二叉树，它的子树也是平衡二叉树
+        //1.root左树的高度-右树的高度<=1
+        //2.root的左树是平衡树，root的右树也是平衡树
+        if (root == null) {
+            return true;
+        }
+        int left = height(root.left);
+        int right = height(root.right);
+        return Math.abs(left - right) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    //时间复杂度：O(n)
+    public int height2 (TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        if(leftHeight >= 0 && rightHeight >= 0 & Math.abs(leftHeight - rightHeight) <= 1) {
+            return Math.max(leftHeight, rightHeight) + 1;
+        } else {
+            //进入else说明左树和右树的高度差绝对值超过1，即非平衡二叉树
+            return -1;
+        }
+    }
+    /**
+     * 方法二：判断一棵树是否为平衡二叉树
+     时间复杂度：O(N)
+     */
+    public boolean isBalanced2(TreeNode root) {
+        //一棵树为平衡二叉树，它的子树也是平衡二叉树
+        //1.root左树的高度-右树的高度<=1
+        //2.root的左树是平衡树，root的右树也是平衡树
+        if (root == null) {
+            return true;
+        }
+        return height(root) >= 0;
+    }
+
+    public boolean isSymmetricChild(TreeNode leftNode, TreeNode rightNode) {
+        if (leftNode == null && rightNode == null) {
+            return true;
+        }
+        if (leftNode == null || rightNode == null) {
+            return false;
+        }
+        if (leftNode.val != rightNode.val) {
+            return false;
+        }
+        return isSymmetricChild(leftNode.left, rightNode.right) && isSymmetricChild(leftNode.right, rightNode.left);
+    }
+
+    /**
+     * 给你一个二叉树的根节点 root ， 检查它是否轴对称。
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isSymmetricChild(root.left, root.right);
     }
 }
