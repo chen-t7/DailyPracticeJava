@@ -23,7 +23,7 @@ public class BinaryTree {
      * 穷举的方式创建二叉树
      * @return
      */
-    public TreeNode creatNode1() {
+    public TreeNode createNode1() {
         TreeNode A = new TreeNode('A');
         TreeNode B = new TreeNode('B');
         TreeNode C = new TreeNode('C');
@@ -42,6 +42,7 @@ public class BinaryTree {
         return A;
     }
 
+    /*
     static class TreeNode {
         public char val;
         public TreeNode left;
@@ -50,6 +51,8 @@ public class BinaryTree {
             this.val = val;
         }
     }
+
+     */
     public static class Main {
         public static int i = 0;
 
@@ -417,4 +420,61 @@ public class BinaryTree {
         }
         return isSymmetricChild(root.left, root.right);
     }
+
+    /**
+     * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。
+     * @param root
+     */
+    public void levelOrder1(TreeNode root) {
+        if (root == null) {
+            return ;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            if (cur.left != null) {
+                queue.offer(cur.left);
+            }
+            if (cur.right != null) {
+                queue.offer(cur.right);
+            }
+            System.out.print(cur.val + " ");
+        }
+        return ;
+    }
+
+    /**
+     * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。
+     * @param root
+     */
+    public List<List<Character>> levelOrder2(TreeNode root) {
+        List<List<Character>> ret = new ArrayList<>();
+        if (root == null) {
+            return ret;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();//这个值代表当前层 有几个节点
+            List<Character> list = new ArrayList<>();
+            while (size != 0) {
+                TreeNode cur = queue.poll();
+                list.add(cur.val);
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+                size--;
+            }
+            ret.add(list);
+        }
+        return ret;
+    }
+
+
 }

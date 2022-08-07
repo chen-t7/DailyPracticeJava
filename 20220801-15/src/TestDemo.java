@@ -8,7 +8,7 @@
 public class TestDemo {
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
-        TreeNode root =  binaryTree.creatNode();
+        TreeNode root =  binaryTree.createNode1();
         System.out.println("sasasa");
         binaryTree.preOrder(root);
         System.out.println();
@@ -46,5 +46,8 @@ public class TestDemo {
         binaryTree.isCompleteTree(root);
         System.out.println("========判断这棵树是否为完全二叉树========");
         System.out.println(binaryTree.isCompleteTree(root));
+
+        System.out.println("========输出这棵树的层序遍历========");
+        binaryTree.levelOrder1(root);
     }
 }
