@@ -476,5 +476,183 @@ public class BinaryTree {
         return ret;
     }
 
+    /**
+     * 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+     * 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，
+     * 满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+     * @param root
+     * @param node
+     * @param stack
+     * @return
+     */
+    //方法1
+    //root:根节点   node：指定的节点   stack：存放从根节点到指定节点的路径
+    public boolean getPath(TreeNode root, TreeNode node, Stack<TreeNode> stack) {
+        if (root == null || node == null) {
+            return false;
+        }
+        stack.push(root);
+        if (root == node) {
+            return true;
+        }
+        boolean flg = getPath(root.left, node, stack);
+        if (flg == true) {
+            return true;
+        }
+        flg = getPath(root.right, node, stack);
+        if (flg == true) {
+            return true;
+        }
+        stack.pop();
+        return false;
+    }
 
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        //思路：假设该树是孩子双亲表示法，就可以转换成链表求交点
+        //1.用两个栈分别存储root到p和q的路径
+        //2.求栈的大小，让栈中多的元素 出差值个元素
+        //3.出栈，比较如果两个栈的元素相同，此时就是公共祖先
+        if (root == null) {
+            return null;
+        }
+        Stack<TreeNode> stack1 = new Stack<>();
+        getPath(root, p, stack1);
+        Stack<TreeNode> stack2 = new Stack<>();
+        getPath(root, q, stack2);
+
+        int size1 = stack1.size();
+        int size2 = stack2.size();
+        if (size1 > size2) {
+            int size = size1 - size2;
+            while (size > 0) {
+                //出第一个栈里面的元素
+                stack1.pop();
+                size--;
+            }
+            while (!stack1.isEmpty() && !stack2.isEmpty()) {
+                //判断地址
+                if (stack1.peek() == stack2.peek()) {
+                    return stack1.pop();
+                } else {
+                    stack1.pop();
+                    stack2.pop();
+                }
+            }
+        } else {
+            int size = size2 - size1;
+            while (size > 0) {
+                //出第一个栈里面的元素
+                stack2.pop();
+                size--;
+            }
+            while (!stack1.isEmpty() && !stack2.isEmpty()) {
+                //判断地址
+                if (stack1.peek() == stack2.peek()) {
+                    return stack1.pop();
+                } else {
+                    stack1.pop();
+                    stack2.pop();
+                }
+            }
+        }
+        return null;
+    }
+    //方法2
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        //思路：假定该树为二叉搜索树,分别在左子树和右子树中寻找
+        if (root == null) {
+            return null;
+        }
+        if (p == root || q == root) {
+            return root;
+        }
+        TreeNode leftT = lowestCommonAncestor2(root.left, p, q);
+        TreeNode rightT = lowestCommonAncestor2(root.right, p, q);
+
+        if (leftT != null && rightT != null) {
+            return root;
+        } else if (leftT != null){
+            return leftT;
+        } else  if (rightT != null) {
+            return rightT;
+        }
+        return null;
+    }
+
+    /**
+     * 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表
+     */
+    TreeNode prev = null;
+    public void inorder(TreeNode pCur) {
+        if (pCur == null) {
+            return ;
+        }
+        inorder(pCur.left);
+        pCur.left = prev;
+        if (prev != null) {
+            prev.right = pCur;
+        }
+        prev = pCur;
+        inorder(pCur.right);
+    }
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        //1.排序：中序遍历二叉搜索树，就是从小到大的排序
+        //2.双向链表：规定把二叉树的left当做双向链表的前驱，right当做后继
+        //即需要中序遍历的过程中修改节点的左右指向就可
+        if (pRootOfTree == null) {
+            return null;
+        }
+        inorder(pRootOfTree);
+        TreeNode head = pRootOfTree;
+        while (head.left != null) {
+            head = head.left;
+        }
+        return head;
+    }
+
+
+    /**
+     * 给定两个整数数组 preorder 和 inorder ，其中 preorder 是二叉树的先序遍历，
+     * inorder 是同一棵树的中序遍历，请构造二叉树并返回其根节点
+     */
+    /*
+    public int preIndex = 0;
+    public TreeNode createTreeByPandI(int[] preorder, int[] inorder, int inbegin, int inend) {
+        if (inbegin > inend) {
+            //满足这个条件说明没有左树或者右树
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[preIndex]);
+        int rootIndex = findIndexOfI(inorder, inbegin, inend, preorder[preIndex]);
+        if (rootIndex == -1) {
+            return null;
+        }
+        preIndex++;
+        root.left = createTreeByPandI(preorder, inorder, inbegin, rootIndex-1);
+        root.right = createTreeByPandI(preorder, inorder, rootIndex + 1, inend);
+        return root;
+    }
+
+    private int findIndexOfI(int[] inorder, int inbegin, int inend, int key) {
+        for (int i = inbegin; i <= inend; ++i) {
+            if (key == inorder[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        //1.先将pi下标的元素创建为root
+        //2.在中序遍历的数组当中，找出当前pi下标的元素，存在的位置。ri
+        //3.构建root的左子树和右子树
+        if (preorder == null || inorder == null) {
+            return null;
+        }
+        return createTreeByPandI(preorder, inorder, 0, inorder.length - 1);
+    }
+     */
+
+    
 }
+
