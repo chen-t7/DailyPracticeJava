@@ -652,6 +652,42 @@ public class BinaryTree {
         return createTreeByPandI(preorder, inorder, 0, inorder.length - 1);
     }
      */
+    /**
+     * 给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历，
+     * postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 
+     */
+    /*
+    public int postIndex = 0;
+    public TreeNode createTreeByIandP(int[] postorder, int[] inorder, int inbegin, int inend) {
+        if (inbegin > inend) {
+            return null;
+        }
+        TreeNode root = new TreeNode(postorder[postIndex]);
+        int rootIndex = findIndexOfInorder(inbegin, inend, inorder, postorder[postIndex]);
+        if (rootIndex == -1) {
+            return null;
+        }
+        postIndex--;
+        root.right = createTreeByIandP(postorder, inorder, rootIndex+1, inend);
+        root.left = createTreeByIandP(postorder, inorder, inbegin, rootIndex-1);
+        return root;
+    }
+    private int findIndexOfInorder(int inbegin, int inend, int[] inorder, int key) {
+        for (int i = inbegin; i <= inend; ++i) {
+            if (inorder[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if (inorder == null || postorder == null) {
+            return null;
+        }
+        postIndex = postorder.length-1;
+        return createTreeByIandP(postorder, inorder, 0, inorder.length-1);
+    }
+     */
 
     
 }
