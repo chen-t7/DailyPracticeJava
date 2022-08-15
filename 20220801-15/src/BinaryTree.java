@@ -21,6 +21,7 @@ public class BinaryTree {
 
     /**
      * 穷举的方式创建二叉树
+     *
      * @return
      */
     public TreeNode createNode1() {
@@ -60,6 +61,7 @@ public class BinaryTree {
          * 编一个程序，读入用户输入的一串先序遍历字符串，根据此字符串建立一个二叉树（以指针方式存储）.
          * 例如如下的先序遍历字符串： ABC##DE#G##F### 其中“#”表示的是空格，空格字符代表空树。
          * 建立起此二叉树以后，再对二叉树进行中序遍历，输出遍历结果。
+         *
          * @param str
          * @return
          */
@@ -79,7 +81,7 @@ public class BinaryTree {
 
         public static void inorder(TreeNode root) {
             if (root == null) {
-                return ;
+                return;
             }
             inorder(root.left);
             System.out.print(root.val + " ");
@@ -167,6 +169,7 @@ public class BinaryTree {
 
     // 遍历思路-求结点个数
     static int size = 0;
+
     int getSize1(TreeNode root) {
         if (root == null) {
             return 0;
@@ -187,9 +190,10 @@ public class BinaryTree {
 
     // 遍历思路-求叶子结点个数
     static int leafSize = 0;
+
     void getLeafSize1(TreeNode root) {
         if (root == null) {
-            return ;
+            return;
         }
         if (root.left == null && root.right == null) {
             leafSize++;
@@ -212,21 +216,21 @@ public class BinaryTree {
 
     // 子问题思路-求第 k 层结点个数
     int getKLevelSize(TreeNode root, int k) {
-        if (root == null|| k <= 0) {
+        if (root == null || k <= 0) {
             return 0;
         }
         if (k == 1) {
             return 1;
         }
-        return getKLevelSize(root.left, k-1) + getKLevelSize(root.right, k-1);
+        return getKLevelSize(root.left, k - 1) + getKLevelSize(root.right, k - 1);
     }
-
 
 
     /**
      * 获取二叉树的高度
      * 时间复杂度  O(N)
      * 空间复杂度  O(log2(N))
+     *
      * @param root
      * @return
      */
@@ -253,17 +257,18 @@ public class BinaryTree {
         if (root.val == val) {
             return root;
         }
-        TreeNode leftNode = find(root.left,val);
-        TreeNode rightNode = find(root.right,val);
+        TreeNode leftNode = find(root.left, val);
+        TreeNode rightNode = find(root.right, val);
         return leftNode == null ? rightNode : leftNode;
     }
 
     /**
      * 判断这棵树是不是完全二叉树
+     *
      * @param root
      * @return
      */
-    boolean isCompleteTree (TreeNode root) {
+    boolean isCompleteTree(TreeNode root) {
         if (root == null) {
             return true;
         }
@@ -286,11 +291,11 @@ public class BinaryTree {
             queue.offer(cur.right);
             queue.poll();
         }
-         while (!queue.isEmpty()) {
-             if (queue.poll() != null) {
+        while (!queue.isEmpty()) {
+            if (queue.poll() != null) {
                 return false;
-             }
-         }
+            }
+        }
         return true;
     }
 
@@ -298,6 +303,7 @@ public class BinaryTree {
      * 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
      * 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
      * 时间复杂度：O(min(m,n))
+     *
      * @param p
      * @param q
      * @return
@@ -319,6 +325,7 @@ public class BinaryTree {
      * 给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树。
      * 如果存在，返回 true ；否则，返回 false 。力扣（LeetCode）
      * 时间复杂度：O(m*n)
+     *
      * @param root
      * @param subRoot
      * @return
@@ -327,12 +334,12 @@ public class BinaryTree {
         //1.先判断两棵树是不是两颗相同的树
         //2.不是的话判断subRoot是不是root的左子树或者右子树
         if (root == null || subRoot == null) {
-             return false;
+            return false;
         }
         if (isSameTree(root, subRoot)) {
             return true;
         }
-        if (isSubtree(root.left, subRoot)){
+        if (isSubtree(root.left, subRoot)) {
             return true;
         }
         if (isSubtree(root.right, subRoot)) {
@@ -342,7 +349,7 @@ public class BinaryTree {
     }
 
     //时间复杂度：O(n)
-    public int height (TreeNode root) {
+    public int height(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -350,6 +357,7 @@ public class BinaryTree {
         int rightHeight = height(root.right);
         return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
     }
+
     /**
      * 给定一个二叉树，判断它是否是高度平衡的二叉树。
      * 本题中，一棵高度平衡二叉树定义为：个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
@@ -368,23 +376,24 @@ public class BinaryTree {
     }
 
     //时间复杂度：O(n)
-    public int height2 (TreeNode root) {
+    public int height2(TreeNode root) {
         if (root == null) {
             return 0;
         }
         int leftHeight = height(root.left);
         int rightHeight = height(root.right);
 
-        if(leftHeight >= 0 && rightHeight >= 0 & Math.abs(leftHeight - rightHeight) <= 1) {
+        if (leftHeight >= 0 && rightHeight >= 0 & Math.abs(leftHeight - rightHeight) <= 1) {
             return Math.max(leftHeight, rightHeight) + 1;
         } else {
             //进入else说明左树和右树的高度差绝对值超过1，即非平衡二叉树
             return -1;
         }
     }
+
     /**
      * 方法二：判断一棵树是否为平衡二叉树
-     时间复杂度：O(N)
+     * 时间复杂度：O(N)
      */
     public boolean isBalanced2(TreeNode root) {
         //一棵树为平衡二叉树，它的子树也是平衡二叉树
@@ -411,6 +420,7 @@ public class BinaryTree {
 
     /**
      * 给你一个二叉树的根节点 root ， 检查它是否轴对称。
+     *
      * @param root
      * @return
      */
@@ -423,11 +433,12 @@ public class BinaryTree {
 
     /**
      * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。
+     *
      * @param root
      */
     public void levelOrder1(TreeNode root) {
         if (root == null) {
-            return ;
+            return;
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
@@ -441,11 +452,12 @@ public class BinaryTree {
             }
             System.out.print(cur.val + " ");
         }
-        return ;
+        return;
     }
 
     /**
      * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。
+     *
      * @param root
      */
     public List<List<Character>> levelOrder2(TreeNode root) {
@@ -480,6 +492,7 @@ public class BinaryTree {
      * 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
      * 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，
      * 满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+     *
      * @param root
      * @param node
      * @param stack
@@ -557,6 +570,7 @@ public class BinaryTree {
         }
         return null;
     }
+
     //方法2
     public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
         //思路：假定该树为二叉搜索树,分别在左子树和右子树中寻找
@@ -571,9 +585,9 @@ public class BinaryTree {
 
         if (leftT != null && rightT != null) {
             return root;
-        } else if (leftT != null){
+        } else if (leftT != null) {
             return leftT;
-        } else  if (rightT != null) {
+        } else if (rightT != null) {
             return rightT;
         }
         return null;
@@ -583,9 +597,10 @@ public class BinaryTree {
      * 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表
      */
     TreeNode prev = null;
+
     public void inorder(TreeNode pCur) {
         if (pCur == null) {
-            return ;
+            return;
         }
         inorder(pCur.left);
         pCur.left = prev;
@@ -595,6 +610,7 @@ public class BinaryTree {
         prev = pCur;
         inorder(pCur.right);
     }
+
     public TreeNode Convert(TreeNode pRootOfTree) {
         //1.排序：中序遍历二叉搜索树，就是从小到大的排序
         //2.双向链表：规定把二叉树的left当做双向链表的前驱，right当做后继
@@ -652,6 +668,7 @@ public class BinaryTree {
         return createTreeByPandI(preorder, inorder, 0, inorder.length - 1);
     }
      */
+
     /**
      * 给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历，
      * postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 
@@ -688,7 +705,61 @@ public class BinaryTree {
         return createTreeByIandP(postorder, inorder, 0, inorder.length-1);
     }
      */
+    public List<Character> preorderTraversal2(TreeNode root) {
+        //非递归实现
+        Stack<TreeNode> stack = new Stack<>();
+        List<Character> list = new ArrayList<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                list.add(cur.val);
+                cur = cur.left;
+            }
+            TreeNode top = stack.pop();
+            cur = top.right;
+        }
+        return list;
+    }
 
-    
+    public List<Character> inorderTraversal2(TreeNode root) {
+        //非递归实现
+        List<Character> retList = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            TreeNode top = stack.pop();
+            retList.add(top.val);
+            cur = top.right;
+        }
+        return retList;
+    }
+
+    public List<Character> postorderTraversal2(TreeNode root) {
+        //非递归实现
+        List<Character> retList = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        TreeNode prev = null;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            TreeNode top = stack.peek();
+            if (top.right == null || top.right == prev) {
+                stack.pop();
+                retList.add(top.val);
+                prev = top;
+            } else {
+                cur = top.right;
+            }
+        }
+        return retList;
+    }
 }
 
