@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * Created with IntelliJ IDEA.
  * Description
@@ -53,5 +56,61 @@ public class TestHeap {
             //向下调整
             this.shiftDown(parent, this.usedSize);
         }
+    }
+
+    private void shiftUp(int child) {
+        int parent = (child - 1) / 2;
+        int len = this.usedSize;
+        while (parent >= 0) {
+            if (this.elem[parent] >= this.elem[child]) {
+                break;
+            }
+
+            int temp = this.elem[parent];
+            this.elem[parent] = this.elem[child];
+            this.elem[child] = temp;
+
+            child = parent;
+            parent = (child - 1) / 2;
+        }
+    }
+
+    public void offer(int val) {
+        if (this.isFull()) {
+            //扩容
+            this.elem = Arrays.copyOf(this.elem, 2*this.elem.length);
+        }
+        elem[usedSize++] = val;
+        shiftUp(this.usedSize-1);
+    }
+
+    public boolean isFull() {
+        return this.usedSize == this.elem.length;
+    }
+
+    public int poll() {
+        //1.交换0下标和最后一个元素
+        //2.只有0下标的这棵树不是大根堆/小根堆，所以调整0下标的这棵树就可
+        if (isEmpty()) {
+            throw new RuntimeException("优先级队列为空！");
+        }
+        int temp = this.elem[0];
+        this.elem[0] = this.elem[this.usedSize-1];
+        //this.elem[this.usedSize-1] = temp;
+        this.usedSize--;
+
+        shiftDown(0, this.usedSize);
+        return temp;
+    }
+
+    public boolean isEmpty() {
+        return this.usedSize == 0;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("优先级队列为空！");
+        }
+        return this.elem[0];
     }
 }
