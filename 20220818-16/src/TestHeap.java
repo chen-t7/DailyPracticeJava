@@ -113,4 +113,16 @@ public class TestHeap {
         }
         return this.elem[0];
     }
+
+    public void heapSort() {
+        int end = this.usedSize - 1;
+        //前提：已经是个大根堆
+        while (end > 0) {
+            int temp = this.elem[0];
+            this.elem[0] = this.elem[end];
+            this.elem[end] = temp;
+            shiftDown(0, end);
+            end--;
+        }
+    }
 }
