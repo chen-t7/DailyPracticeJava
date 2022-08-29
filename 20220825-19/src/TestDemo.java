@@ -2,6 +2,7 @@ import com.sun.javafx.image.impl.ByteIndexed;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -88,8 +89,52 @@ class Alg3 {
         }
     }
 }
+class A {
+
+}
+class Person extends A{
+
+}
+
+class Student extends Person {
+
+}
+
+class C extends Student {
+
+}
+
 public class TestDemo {
     public static void main(String[] args) {
+        ArrayList<? super Person> arrayList1 = new ArrayList<Person>();
+        //ArrayList<? super Person> arrayList2 = new ArrayList<Student>();
+        arrayList1.add(new Person());
+        arrayList1.add((new Student()));//添加的元素 是Person或者Person的子类
+        //arrayList1.add(new A());//error
+        arrayList1.add(new C());
+
+        ArrayList<? super Person> arrayList2 = new ArrayList<A>();
+        arrayList2.add(new Person());
+        arrayList2.add((new Student()));
+
+        //Person person = arrayList2.get(0);//error
+        //Student student = arrayList1.get(0);//error
+        Object o = arrayList1.get(0);
+
+
+    }
+    public static void main8(String[] args) {
+        ArrayList<Integer> arrayList1 = new ArrayList<>();
+        ArrayList<Double> arrayList2 = new ArrayList<>();
+        List<? extends Number> list1 = arrayList1;
+        //List<? extends Number> list2 = arrayList2;
+        //list1.add(0, 1);//ERROR:通配符的上界，不适合写入数据
+        //list1.add(1,10.9);
+        Number o = list1.get(0);
+        //Integer a = list1.get(1);//Error
+    }
+
+    public static void main7(String[] args) {
         ArrayList<Integer> list1 = new ArrayList<>();
         list1.add(1);
         list1.add(2);
