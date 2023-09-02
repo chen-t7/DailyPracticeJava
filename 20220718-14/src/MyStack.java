@@ -15,6 +15,7 @@ public class MyStack {
 
     public MyStack() {
         this.elem = new int[5];
+        this.usedSize = 0;
     }
 
     public void push(int val) {
@@ -33,7 +34,8 @@ public class MyStack {
         if (isEmpty()) {
             throw new RuntimeException("栈为空！");
         }
-        int ret = this.elem[usedSize];
+        int ret = this.elem[usedSize-1];
+        this.elem[usedSize-1] = 0;
         this.usedSize--;
         return ret;
     }
@@ -46,7 +48,7 @@ public class MyStack {
         if (isEmpty()) {
             throw new RuntimeException("栈为空！");
         }
-        return this.elem[usedSize];
+        return this.elem[usedSize-1];
     }
 
     @Override

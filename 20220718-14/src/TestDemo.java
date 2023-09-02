@@ -11,7 +11,7 @@ import java.util.Stack;
  * Time: 22:14
  */
 public class TestDemo {
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         MyQueue myQueue = new MyQueue();
         myQueue.offer(1);
         myQueue.offer(2);
@@ -33,7 +33,7 @@ public class TestDemo {
         System.out.println(deque.peekLast());
     }
 
-    public static void main4(String[] args) {
+    public static void main(String[] args) {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(1);
         queue.offer(2);
@@ -57,7 +57,7 @@ public class TestDemo {
         stack.push(3);
         stack.push(4);
 
-        stack.pop();
+        System.out.println(stack.pop());
         System.out.println(stack.peek());
         System.out.println(stack);
         System.out.println(stack.isEmpty());
@@ -78,12 +78,23 @@ public class TestDemo {
         stack.push(4);
 
         stack.pop();
-        stack.peek();
-        System.out.println(stack);
+        System.out.println(stack.peek());
         System.out.println(stack.empty());
         System.out.println("===================");
         System.out.println(stack.isEmpty());
+        stack.push(4);
+        stack.push(5);
+        stack.push(6);
+        System.out.println(stack);
 
         String s;
     }
 }
+
+
+/*
+00
+10 11
+20 21 22
+30 31 32 33
+ */
