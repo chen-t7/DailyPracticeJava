@@ -348,7 +348,6 @@ public class BinaryTree {
         return false;
     }
 
-    //时间复杂度：O(n)
     public int height(TreeNode root) {
         if (root == null) {
             return 0;
@@ -380,8 +379,8 @@ public class BinaryTree {
         if (root == null) {
             return 0;
         }
-        int leftHeight = height(root.left);
-        int rightHeight = height(root.right);
+        int leftHeight = height2(root.left);
+        int rightHeight = height2(root.right);
 
         if (leftHeight >= 0 && rightHeight >= 0 & Math.abs(leftHeight - rightHeight) <= 1) {
             return Math.max(leftHeight, rightHeight) + 1;
@@ -402,7 +401,7 @@ public class BinaryTree {
         if (root == null) {
             return true;
         }
-        return height(root) >= 0;
+        return height2(root) >= 0;
     }
 
     public boolean isSymmetricChild(TreeNode leftNode, TreeNode rightNode) {
