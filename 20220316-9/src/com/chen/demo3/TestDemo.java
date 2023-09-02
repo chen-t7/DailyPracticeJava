@@ -55,7 +55,6 @@ class Dog extends Animal {
 
 class Bird extends Animal {
     public String wing;
-    //如果子类中有何父类同名的变量，优先访问子类的变量
     public Bird(String name, int age) {
         super(name, age);
     }
@@ -71,12 +70,11 @@ class Bird extends Animal {
 }
 
 public class TestDemo {
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         Animal animal= new Dog("haha", 18);
-
     }
 
-    //向下转转型
+    //向下转型--安全
     public static void main5(String[] args) {
         Animal animal= new Dog("haha", 18);
         //判断animal引用的是否为Bird类型的对象
@@ -84,13 +82,23 @@ public class TestDemo {
             Bird bird = (Bird)animal;
             bird.fly();
         }
+        if (animal instanceof Dog) {
+            Dog dog = (Dog) animal;
+            dog.eat();
+        }
     }
 
-    //向下转转型
-    public static void main4(String[] args) {
-        Animal animal2= new Bird("heihei", 27, "隐形的翅膀");
-        Bird bird = (Bird)animal2;
+    //向下转型
+    public static void main(String[] args) {
+        Animal animal= new Bird("heihei", 27, "隐形的翅膀");
+        //animal2.fly();编译出错，找不到fly方法
+        Bird bird = (Bird)animal;
         bird.fly();
+
+        Animal animal2= new Dog("haha", 18);
+        //运行时抛异常，不安全的向下转型，Dog对象不能转成Bird对象
+        Bird bird2 = (Bird)animal2;
+        bird2.fly();
     }
 
     public static void main3(String[] args) {
@@ -126,9 +134,8 @@ public class TestDemo {
          */
         //1.直接赋值
         Animal animal= new Dog("haha", 18);
-
-        Dog dog = new Dog("haha", 18);
         //2.函数传参
+        Dog dog = new Dog("haha", 18);
         func(dog);
     }
 }

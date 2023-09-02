@@ -34,7 +34,7 @@ class Student implements Comparable<Student>{
 
     @Override
     public int compareTo(Student o) {
-        /*
+
         if (this.age > o.age) {
             return 1;
         } else if (this.age == o.age) {
@@ -86,13 +86,12 @@ class ScoreComparator implements Comparator<Student> {
     }
 }
 
-class NmaeComparator implements Comparator<Student> {
+class NameComparator implements Comparator<Student> {
     @Override
     public int compare(Student o1, Student o2) {
         return o1.name.compareTo(o2.name);
     }
 }
-
 public class TestDemo {
     public static void main3(String[] args) {
         Student student1 = new Student(15,"hhhh", 99.9);
@@ -107,7 +106,7 @@ public class TestDemo {
         System.out.println(ageComparator.compare(student1, student2));
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Student[] students = new Student[3];
         students[0] = new Student(14,"hhhh", 99.9);
         students[1] = new Student(15,"cccc", 66.6);
@@ -122,8 +121,8 @@ public class TestDemo {
         Arrays.sort(students, scoreComparator);
         System.out.println(Arrays.toString(students));
 
-        NmaeComparator nmaeComparator = new NmaeComparator();
-        Arrays.sort(students, nmaeComparator);
+        NameComparator nameComparator = new NameComparator();
+        Arrays.sort(students, nameComparator);
         System.out.println(Arrays.toString(students));
 
     }

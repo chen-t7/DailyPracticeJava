@@ -14,10 +14,15 @@ class Animal {
     //private int count;
     protected int count;
 
+    public Animal() {
+    }
+
     public Animal(String name, int age) {
         this.name = name;
         this.age = age;
     }
+
+
 
     public void eat() {
         System.out.println(name + "eat()");
@@ -28,20 +33,21 @@ class Animal {
 //extends 继承关键字
 //子类构造的同时，要先帮助父类来进行构造。
 class Dog extends Animal{
-    /*
+
     public Dog() {
         super();
     }
-     */
+
     public Dog(String name, int age) {
         //super：显示调用构造方法，这里会调用父类带有两个参数的构造方法
         super(name, age);
     }
+
 }
 
 final class Bird extends Animal{
     public String wing;
-    //如果子类中有何父类同名的变量，优先访问子类的变量
+    //如果子类中有和父类同名的变量，优先访问子类的变量
     public String name;
     public Bird(String name, int age) {
         super(name, age);
@@ -66,7 +72,7 @@ final int a = 10;//常量，不可以被修改
 final //修饰方法
 */
 
-public class TestDemo {
+public class TestDemo{
     public int val;
     protected int val2 = 99;
 

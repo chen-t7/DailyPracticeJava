@@ -47,7 +47,7 @@ class Person implements Cloneable{
 }
 
 public class TestDemo {
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main2(String[] args) throws CloneNotSupportedException {
         Person person = new Person();
         Person person2 = (Person) person.clone();
         System.out.println(person.money.m);
@@ -60,7 +60,7 @@ public class TestDemo {
     }
 
 
-    public static void main1(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException {
         Person person = new Person();
         person.age = 99;
 

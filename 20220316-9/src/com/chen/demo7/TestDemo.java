@@ -11,7 +11,7 @@ package com.chen.demo7;
 interface IShape {
 
     public abstract void draw();//void draw();不加也会默认是public abstract的
-    /*
+
     default public void func() {
         System.out.println("hhhhhh");
     }
@@ -23,7 +23,7 @@ interface IShape {
     public static void funcStatic() {
         System.out.println("hhhhhh");
     }
-     */
+
 }
 
 class Rect implements IShape {
@@ -32,13 +32,13 @@ class Rect implements IShape {
         System.out.println("♦");
     }
 
-    /*
+
     @Override
     public void func() {
         System.out.println("重写接口当中的默认方法");
     }
 
-     */
+
 }
 
 class Flower implements IShape {
