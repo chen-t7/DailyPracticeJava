@@ -1,7 +1,7 @@
 //psvm-->main函数
 //sout-->打印
 public class TestDemo {
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         int a = 10;
         int b = 20;
         System.out.println(a == b);
@@ -28,7 +28,7 @@ public class TestDemo {
         System.out.println(a);
 
         short sh = 10;
-        //sh = (short)(s + 9);
+        //sh = (short)(sh + 9);
         sh += 9;//自动进行强制类型转换
         short s = 1;
         s = sh;
