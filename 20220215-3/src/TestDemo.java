@@ -1,5 +1,4 @@
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,8 +7,149 @@ import java.util.Scanner;
  * Date: 2022 -02 -15
  * Time: 22:35
  */
+
 public class TestDemo {
-    public static void main(String[] args) {
+
+    //华为od笔试题，给两个字符串a和b，在b中找到a字符串，返回a字符串最后一次出现的首字母下标
+    //例如target="abc",source="abcaybec"；返回3
+    //通过百分之六十用例
+    public static void main22(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // 注意 hasNext 和 hasNextLine 的区别
+        String target = sc.nextLine();
+        String source = sc.nextLine();
+        int lastIndex = -1;
+        for (int i = 0; i < source.length(); i++) {
+            int j = 0;
+            int tempi = i;
+            int last = lastIndex;
+            boolean has = false;
+            while (tempi < source.length() && j < target.length()) {
+                if (target.charAt(j) == source.charAt(tempi)) {
+                    if (source.charAt(i) == target.charAt(0) && lastIndex < i) {
+                        lastIndex = i;
+                    }
+                    j++;
+                    has = true;
+                }
+                tempi++;
+            }
+            //在source中找不到和目标字符串字母相同的，应该直接退出
+            if (target.charAt(target.length()-1) != source.charAt(tempi-1)) {
+                lastIndex = last;
+            }
+        }
+        System.out.println(lastIndex);
+    }
+
+    //华为od笔试题，给定一个数组，从数组第一个元素出发，第一步走n步（n<数组长度一半），
+    // 之后的每一步走对应数组下标的部步数，求最少走几步能走到数组尾部
+    //例：[7,5,9,4,2,6,8,3,5,4,3,9]，第一步从7走2步到9，再从9走9步到9
+    //笔试通过
+    public static void main21(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // 注意 hasNext 和 hasNextLine 的区别
+        String[] str = sc.nextLine().split(" ");
+        int minstep = -1;
+        for (int i = 1; i < str.length/2; i++) {
+            int j = i;
+            int step = 1;
+            while (j < str.length-1) {
+                j += Integer.parseInt(str[j]);
+                step++;
+            }
+            if ((j == str.length-1 &&  minstep < 0) || (j == str.length-1 &&  step < minstep)) {
+                minstep = step;
+            }
+        }
+        System.out.println(minstep);
+    }
+
+
+    /*题目描述:
+    宜居星球改造计划
+2XXX年，人类通过对火星的大气进行宜居改造分析，使得火星已在理论上具备人类宜居的条件；
+由于技术原因，无法一次性将火星大气全部改造，只能通过局部处理形式；
+假设将火星待改造的区域为row *column的网格，每个网格有3个值，宜居区、可改造区、死亡区，
+使用YES、NO、NA代替，YES表示该网格已经完成大气改造，NO表示该网格未进行改造，后期可进行改造，NA表示死亡区，
+不作为判断是否改造完的宜居，无法穿过；
+初始化下，该区域可能存在多个宜居区，并目每个宜居区能同时在每个大阳日单位向上下左右四个方向的相邻格子进行扩散，自动将4个方向相邻的真空区改造成宜居区；
+请计算这个待改造区域的网格中，可改造区是否能全部成宜居区，如果可以，则返回改造的大阳日天教，不可以则返回-1*/
+    //输入row*column个网格数据，每个网格值枚举值如下: YES，NO，NA，样例:
+    //YES YES NO
+    //NO NO NO
+    //NA NO YES
+    //没做出来  再看看
+    public static void main20(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int row = sc.nextInt();
+        int column = sc.nextInt();
+        int days = 0;
+        boolean flag = false;
+        String [][]str = new String[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                str[i][j] = sc.next();
+            }
+        }
+        for (int i = 0; i < row-1; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (str[i][j] == "YES") {
+                    flag = true;
+                }
+                if (str[i+1][j] == "NA" && str[i][j+1] == "NA") {
+                    days = -1;
+                    break;
+                }
+                if (str[i][j] == "NO") {
+                    //days++;
+                }
+            }
+        }
+
+        if (flag == false) {
+            System.out.println(-1);
+        } else{
+            System.out.println(days);
+        }
+    }
+    //华为OD试题
+    // 给定一个整型数组，移除数组的某个元素使其剩下的元素乘积最大，如果数组出现相同的元素 ，请输出第一次出现的元素
+    public static void main19(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[] str = sc.nextLine().split(",");
+        int ret = 0;
+        int negret = 0;
+        int negcount = 0;
+        int min = 0;
+        for (int i = 0; i < str.length; i++) {
+            int temp = Integer.parseInt(str[i]);
+            if (temp >= 0) {
+                if (Integer.parseInt(str[ret]) < 0 || temp < Integer.parseInt(str[ret])) {
+                    ret = i;
+                }
+            }else if (temp < 0) {
+                if (Integer.parseInt(str[negret]) > 0 || temp >= Integer.parseInt(str[negret])) {
+                    negret = i;
+                }
+                negcount++;
+            }
+            //如果都是负数并且总数个数是双数的情况下，比如-2 -3 -4 -5这种情况下不能排序负数里面最大的，
+            // 要排除所有负数里面最小的那个数
+            if (temp < Integer.parseInt(str[min])) {
+                min = i;
+            }
+        }
+        if (ret == 0 && Integer.parseInt(str[0]) < 0) {
+            System.out.println(min);
+        } else if (negcount % 2 == 0) {
+            System.out.println(ret);
+        } else {
+            System.out.println(negret);
+        }
+    }
+
+    public static void main18(String[] args) {
         //7. 计算1/1-1/2+1/3-1/4+1/5 …… + 1/99 - 1/100 的值。
         double sum = 0.0;
         for (int i = 1; i <= 100 ; i++) {
@@ -119,7 +259,8 @@ public class TestDemo {
     }
     //猜数字游戏
     public static void main16(String[] args) {
-        Random random = new Random(11111);
+        //Random random = new Random();
+        Random random = new Random(11111);//设置随机种子，每次输出的结果一致
         int rand = random.nextInt(100);//[0~100)
         System.out.println("rand " + rand);
         Scanner sc = new Scanner(System.in);
