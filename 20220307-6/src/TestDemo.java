@@ -90,7 +90,7 @@ class Person {
 
     public void print() {
         //普通方法可以调用静态方法，因为静态方法不需要依赖于对象
-        //staticFunc();
+        staticFunc();
         this.eat();
         System.out.println("姓名:" + name + " " + "年龄:" + age);
     }
@@ -118,6 +118,7 @@ class Calculator {
     private int num2;
 
     Calculator() {
+        //this(1,1);
         this.num1 = 1;
         this.num2 = 1;
     }
@@ -159,21 +160,21 @@ class Calculator {
         return this.num1*1.0 / this.num2;
     }
 }
-class Myvalue {
+class MyValue {
     public int val;
 
 }
 public class TestDemo {
-    public static void swap(Myvalue myV1, Myvalue myV2) {
+    public static void swap(MyValue myV1, MyValue myV2) {
         int tmp = myV1.val;
         myV1.val = myV2.val;
         myV2.val = tmp;
     }
-    public static void main(String[] args) {
-        Myvalue myValue1 = new Myvalue();
+    public static void main14(String[] args) {
+        MyValue myValue1 = new MyValue();
         myValue1.val = 10;
 
-        Myvalue myValue2 = new Myvalue();
+        MyValue myValue2 = new MyValue();
         myValue2.val = 20;
         swap(myValue1, myValue2);
 
@@ -209,14 +210,16 @@ public class TestDemo {
         Person person = new Person();
         System.out.println(person);
         System.out.println("==============");
-        Person person1 = new Person("chen");
+        Person person1 = new Person("ch");
+        System.out.println(person1);
         System.out.println("==============");
         Person person3 = new Person("chen", 11);
+        System.out.println(person3);
     }
     public static void main8(String[] args) {
         Person person = new Person();
         //person.name = "chen";
-        person.setName("chen");
+        person.setName("ch");
         person.age = 100;
         System.out.println(person.getName());
     }
@@ -237,7 +240,7 @@ public class TestDemo {
     }
     public static void main5(String[] args) {
         Person person1 = new Person();
-        //person1.print();
+        person1.print();
     }
 
     public static void main4(String[] args) {
@@ -281,7 +284,7 @@ public class TestDemo {
         //Person p = null;
         Person person = new Person();
         //成员变量没有赋初值时，打印时打印的是默认值
-       //System.out.println(person.name);
+        //System.out.println(person.name);
         System.out.println(person.age);
     }
 }
