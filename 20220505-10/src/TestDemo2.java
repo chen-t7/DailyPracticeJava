@@ -29,10 +29,10 @@ public class TestDemo2 {
         //return new StringBuffer(str);
     }
 
-    public static void main(String[] args) {
+    public static void main5(String[] args) {
     }
 
-    public static void main4(String[] args) {
+    public static void main(String[] args) {
         StringBuilder stringBuilder = new StringBuilder("abcdefg");
         stringBuilder.reverse();
         System.out.println(stringBuilder);

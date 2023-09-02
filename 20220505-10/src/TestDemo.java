@@ -103,6 +103,10 @@ public class TestDemo {
         String s4 = str.replaceFirst("ab", "pp");
         System.out.println(s4);
         System.out.println("========");
+
+        String s5 = str.replaceFirst("ab", "p");
+        System.out.println(s5);
+        System.out.println("========");
     }
 
     public static void main16(String[] args) {
@@ -121,6 +125,7 @@ public class TestDemo {
         int index3 = str.lastIndexOf(tmp);
         System.out.println(index3);
         System.out.println(str.lastIndexOf(tmp, 3));
+        System.out.println(str.lastIndexOf("x"));//找不到返回-1
         System.out.println("========");
 
         System.out.println(str.startsWith("a"));
@@ -201,6 +206,7 @@ public class TestDemo {
     }
 
     public static void main11(String[] args) throws NoSuchFieldException, IllegalAccessException {
+        //通过反射进行修改
         String str = "abcde";
         Class<?> c1 = String.class;
         // 获取 String 类中的 value 字段. 这个 value 和 String 源码中的 value 是匹配的.
@@ -251,14 +257,14 @@ public class TestDemo {
     }
 
     public static void main8(String[] args) {
-        String str1 = "11";//通过反射进行修改
+        String str1 = "11";
         String str2 = null;
-        /*
-        System.out.println(str1.equals("11"));
-        System.out.println(str2.equals("11"));//会出现空指针异常
-         */
+
         System.out.println("11".equals(str1));
         System.out.println("11".equals(str2));
+
+        System.out.println(str1.equals("11"));
+        System.out.println(str2.equals("11"));//会出现空指针异常
 
     }
 
