@@ -47,14 +47,22 @@ public class TestDemo {
     }
     //13. 输出一个整数的每一位.
     public static void print(int n) {
-        //逆序打印  123  3  2  1
-        while (n != 0) {
-            System.out.println();
+        int tempn = n;
+        int count = 0;
+        while (tempn != 0) {
+            count++;
+            tempn /= 10;
+        }
+        while (count > 0) {
+            tempn = n;
+            int num = (int)(tempn / Math.pow(10,count-1)) % 10;
+            count--;
+            System.out.println(Math.abs(num));//输出绝对值
         }
     }
 
-    public static void main10(String[] args) {
-        print(123);
+    public static void main(String[] args) {
+        print(-574);
     }
     //12. 获取一个数二进制序列中所有的偶数位和奇数位， 分别输出二进制序列。
     public static void main9(String[] args) {
@@ -240,33 +248,88 @@ public class TestDemo {
         return sum;
     }
     public static void main1(String[] args) {
+
         /*
         //9. 求出0～999之间的所有“水仙花数”并输出。(“水仙花数”是指一个三位数，其各位数字的立方和确好等于该数本
-        //   身，如；153＝1＋5＋3?，则153是一个“水仙花数”。)
+        //   身，如；153＝1三次方＋5三次方＋3三次方，则153是一个“水仙花数”。)
         for (int i = 0; i <= 999 ; i++) {
             int tmp = i;
             int count = 0;
-            while (tmp >= 0) {
-                count += tmp % 10;
+            int num = 0;
+            while(tmp > 0) {
+                tmp /= 10;
+                count++;
+            }
+            tmp = i;
+            while(tmp > 0) {
+                num += (int)Math.pow(tmp%10, count);
                 tmp /= 10;
             }
-            if (count == i) {
+            if (num == i) {
                 System.out.println(i);
             }
         }
+         */
 
+        /*
         //10. 编写代码模拟三次密码输入的场景。 最多能输入三次密码，密码正确，提示“登录成功”,密码错误， 可以重新输
         //     入，最多输入三次。三次均错，则提示退出程序
         int passNum = 3;
-        while (passNum > 0) {
-
-        }
-
-        //11. 写一个函数返回参数二进制中 1 的个数 比如： 15 0000 1111 4 个 1
-        //12. 获取一个数二进制序列中所有的偶数位和奇数位， 分别输出二进制序列。
-        //13. 输出一个整数的每一位
+        String password = "chenyu";
         Scanner sc = new Scanner(System.in);
+        while (passNum > 0) {
+            String str = sc.nextLine();
+            if (password.equals(str)) {
+                System.out.println("登录成功");
+                break;
+            } else {
+                passNum--;
+                System.out.println("密码错误");
+            }
+        }
+         */
+        /*
+        //11. 写一个函数返回参数二进制中 1 的个数 比如： 15 0000 1111 4 个 1
+        //0001   0010  0011  0100  0101  0110  0111 1000  1001  1010  1011  1100  1101
+        int num = 63;
+        int count = 0;
+        int num1 = num;
+        //方法一：让num&1，判断最低位是1还是0，接下来num右移一位，判断num的每一位。最多有32位，判断32次就可以了
+        for (int i = 0; i < 32; i++) {
+            if ((num1 & 1) == 1) {
+                count++;
+            }
+            num1 = num1 >> 1;
+        }
+        System.out.println(count);
+        //方法二：假如这个数是十进制，我们要求它各个位上的数字，只需要进行% 和 /的操作就可以了
+        //例如：num=1234   个位：num%10  十位：num/10   num%10   百位：num/10  num%10以此类推
+        //想知道二进制数的各个位，只需要进行%和/的操作就可以了
+        int num2 = num;
+        int count2 = 0;
+        while (num2 > 0) {
+            if ((num2 % 2) == 1) {
+                count2++;
+            }
+            num2 /= 2;
+        }
+        System.out.println(count2);
+        //方法三：一个二进制数字和比自己小一位的数字& ，肯定会把这个数最右边的1消除，看能消除几次，就有几个1
+        int num3 = num;
+        int count3 = 0;
+        while (num3 > 0) {
+            num3 = num3 & (num3-1);
+            count3++;
+        }
+        System.out.println(count3);
+
+         */
+        //12. 获取一个数二进制序列中所有的偶数位和奇数位， 分别输出二进制序列。
+
+         /*
+        //13. 输出一个整数的每一位
         System.out.println("请输入一个整数");
+        Scanner sc = new Scanner(System.in);
         int num2 = sc.nextInt();
         int tmp2 = num2;
         int count2 = 1;
