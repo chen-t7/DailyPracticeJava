@@ -81,7 +81,7 @@ public class MyArrayList {
         }
         if (pos < 0 || pos >= this.usedSize) {
             System.out.println("pos位置不合法");
-            return -1;//所以这里说明一下，业务上的处理，这里不考虑
+            return -1;//业务上的处理，这里不考虑
         }
         return this.elem[pos];
     }

@@ -71,7 +71,7 @@ public class DoubleLinkedList {
         return true;
     }
 
-    //查找是否包含关键字key是否在单链表当中
+    //查找是否包含关键字key
     public boolean contains(int key) {
         DouListNode cur = this.head;
         while (cur != null) {
@@ -140,7 +140,7 @@ public class DoubleLinkedList {
         }
     }
 
-    //得到单链表的长度
+    //得到链表的长度
     public int size() {
         DouListNode cur = this.head;
         int size = 0;
