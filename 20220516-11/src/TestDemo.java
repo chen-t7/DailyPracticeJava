@@ -22,7 +22,7 @@ class  Person implements Cloneable {
 public class TestDemo {
 
 
-    public static void main15(String[] args) {
+    public static void main(String[] args) {
         System.out.println(readFile());
     }
 
@@ -78,6 +78,12 @@ public class TestDemo {
         } catch (ArithmeticException e) {
             e.printStackTrace();
         }
+        /*
+        finally {
+            System.out.println("finally");
+        }
+         */
+        System.out.println("code");
     }
 
     public static void main13(String[] args) {
@@ -94,20 +100,8 @@ public class TestDemo {
         System.out.println("scsad");
     }
 
-    public static void main11(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            int n = scanner.nextInt();
-            System.out.println(10 / n);
-        } catch (InputMismatchException e) {
-            e.printStackTrace();
-            System.out.println("输入有误！");
-        } finally {
-            //一般用作 资源的关闭
-            System.out.printf("finally执行了");
-        }
-    }
-
     public static void main10(String[] args) {
+        //将 Scanner 对象在 try 的 ( ) 中创建, 就能保证在 try 执行完毕后自动调用 Scanner的 close 方法
         try (Scanner scanner = new Scanner(System.in)) {
             int n = scanner.nextInt();
             System.out.println(10 / n);
@@ -148,10 +142,10 @@ public class TestDemo {
             System.out.println("hhhhh");
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
-            System.out.println("捕捉到了一个异常");
+            System.out.println("捕捉到了一个数组越界异常");
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
-            System.out.println("捕捉到了一个异常");
+            System.out.println("捕捉到了一个索引越界异常");
         }
         System.out.println("hello！！！");
     }
@@ -161,7 +155,8 @@ public class TestDemo {
         try {
             System.out.println(array[5]);//当这里抛出异常后，后面的代码不会被执行
             System.out.println("hhhhh");
-        } catch (Exception e) { //不推荐
+        } catch (Exception e) { //最好不要使用Exception。Exception 类是所有异常类的父类. 因此可以用这个类型表示捕捉所有异常.
+            //catch 进行类型匹配的时候, 不光会匹配相同类型的异常对象, 也会捕捉目标异常类型的子类对象
             e.printStackTrace();
             System.out.println("捕捉到了一个异常");
         }
@@ -172,7 +167,7 @@ public class TestDemo {
         int[] array = {1,2,3};
         try {
             array = null;
-            System.out.println(array[2]);
+            System.out.println(array[5]);
             System.out.println("hhhhh");
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) { //处理异常
             e.printStackTrace();
@@ -185,7 +180,7 @@ public class TestDemo {
         int[] array = {1,2,3};
         try {
             array = null;
-            System.out.println(array[2]);
+            System.out.println(array[5]);
             System.out.println("hhhhh");
         } catch (ArrayIndexOutOfBoundsException e) { //处理异常
             e.printStackTrace();
@@ -229,7 +224,7 @@ public class TestDemo {
             e.printStackTrace();
         }
 
-        /*
+
         System.out.println(10/0);
 
         String str = null;
@@ -238,6 +233,5 @@ public class TestDemo {
         int[] array = {1,2,3,4};
         System.out.println(array[9]);
 
-         */
     }
 }

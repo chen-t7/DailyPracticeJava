@@ -52,15 +52,17 @@ public class TestDemo2 {
             throw new NameException("用户名错误！");
         }
         if (!TestDemo2.password.equals(password)) {
-            throw new NameException("密码错误！");
+            throw new  PassworddException("密码错误！");
         }
     }
     public static void main1(String[] args) {
         try {
             login("admin", "1234561");
         } catch (NameException e){
+            e.printStackTrace();
             System.out.println("用户名错误！！");
         } catch (PassworddException e) {
+            e.printStackTrace();
             System.out.println("密码错误！！");
         } finally {
             System.out.println("finally执行了！！");
