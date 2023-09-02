@@ -64,7 +64,7 @@ class Alg<T extends Comparable<T>> {
 
 class Alg2 {
     //静态方法不依赖对象，方法不指定T不能识别类型。如果需要比较的话，还需要指定泛型的上界
-    public static<T extends Comparable<T>> T findMax(T[] array) {
+    public static <T extends Comparable<T>> T findMax(T[] array) {
         T max = array[0];
         for (int i = 0; i < array.length; i++) {
             //if (max < array[i]) { //Error，引用类型不能用<比较
