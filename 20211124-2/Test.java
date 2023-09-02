@@ -48,7 +48,7 @@ public class Test{
 		System.out.println(Short.MIN_VALUE);
 	}
 
-	//字节类型：byte  1个字节  数值  范围:128~127
+	//字节类型：byte  1个字节  数值  范围:-128~127
 	public static void main6(String[] args){
 		byte b = 12;
 		byte c = 21;
@@ -62,13 +62,13 @@ public class Test{
 
 		//byte d = 130;//127
 		//int i = 2147483648;//每一种数据给其赋值时，不能超过它的取值范围
-		System.out.println(Integer.MAX_VALUE + Byte.MAX_VALUE);
+		System.out.println(Integer.MAX_VALUE + Byte.MAX_VALUE);//-2147483522
 	}
 
 	//字符数据类型
 	//Unicode字符集-->包含了很多，比如中文，变得更大了，能表示的范围更广了
 	//char类型对应的包装类是Character
-	public static void main5(String[] args){
+	public static void main18(String[] args){
 		char ch = 'a';//2 byte  取值范围0~65535
 		System.out.println(ch);
 		
@@ -124,5 +124,6 @@ public class Test{
 		System.out.println(b + c);
 		//注意：任何类型的数据和字符串进行拼接  结果就是字符串
 		System.out.println("sum = " + b + c);
+
 	}
 }
