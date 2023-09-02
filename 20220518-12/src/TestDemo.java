@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.Callable;
 
@@ -10,7 +11,7 @@ import java.util.concurrent.Callable;
  * Time: 15:49
  */
 public class TestDemo {
-    public static void main(String[] args) {
+    public static void main5(String[] args) {
         Map<String, String> map2 = new TreeMap<>();
         map2.put("聪明的", "喜羊羊");
         map2.put("美丽的", "美羊羊");
@@ -33,7 +34,6 @@ public class TestDemo {
             System.out.println("key:" + entry.getKey() + "  value:" + entry.getValue());
         }
 
-
     }
 
     public static void main3(String[] args) {
@@ -54,26 +54,28 @@ public class TestDemo {
 
         System.out.println(map);
 
-        Map<String, String> map1 = new TreeMap<>();
+        Set<Map.Entry<String, String>> set = map.entrySet();
+        System.out.println(set);
     }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         Collection<String> collection = new ArrayList<String>();
         collection.add("hello");
         collection.add("hello2");
         System.out.println(collection);
         System.out.println("============================");
+
         /*
         collection.clear();
         System.out.println(collection);
         System.out.println(collection.isEmpty());
          */
+
         Object[] objects  =  collection.toArray();
         System.out.println(Arrays.toString(objects));
 
         String[] strings = (String[])collection.toArray();
         System.out.println(Arrays.toString(strings));
-
 
     }
 
@@ -83,7 +85,7 @@ public class TestDemo {
         collection.add("hello2");
 
         //<>中只能放置类类型，不能放简单类型
-        Collection<Integer> collection1 = new ArrayList<Integer>();
+        Collection<Integer> collection1 = new ArrayList<>();
         collection1.add(1);
         collection1.add(2);
         collection1.add(3);
