@@ -1,3 +1,4 @@
+import com.sun.xml.internal.ws.addressing.WsaActionUtil;
 import jdk.internal.org.objectweb.asm.tree.InnerClassNode;
 
 import javax.swing.plaf.basic.BasicScrollPaneUI;
@@ -11,7 +12,202 @@ import java.util.concurrent.PriorityBlockingQueue;
  * Date: 2022 -08 -29
  * Time: 21:35
  */
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ }
+
 public class TestDemo {
+    public static int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set = new HashSet<>();
+        Queue<Character> queue = new LinkedList<>();
+        int maxCount = 0;
+        for (int i = 0; i < s.length(); ++i) {
+            char ch = s.charAt(i);
+            if (set.contains(ch)) {
+                if (maxCount < queue.size()) {
+                    maxCount = queue.size();
+                }
+                set.clear();
+                while(!queue.isEmpty()) {
+                    if (queue.peek() == ch) {
+                        queue.poll();
+                    } else {
+                        break;
+                    }
+                }
+                set.clear();
+            }
+            set.add(ch);
+            queue.offer(ch);
+        }
+        if (maxCount < queue.size()) {
+            maxCount = queue.size();
+        }
+        return maxCount;
+    }
+
+    public static void main11(String[] args) {
+        String s = "dvdf";
+        int count = lengthOfLongestSubstring(s);
+        System.out.println(count);
+    }
+
+    public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode head = null;
+        ListNode tail = null;
+        int carry = 0;
+        while (l2 != null || l1 != null) {
+            int num = carry;
+            if (l1 != null) {
+                num += l1.val;
+            }
+            if (l2 != null) {
+                num += l2.val;
+            }
+            ListNode tmp = new ListNode(num%10);
+            if (head == null) {
+                head = tmp;
+                tail = head;
+            } else {
+                tail.next = tmp;
+                tail = tail.next;
+            }
+            carry = num / 10;
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+        }
+        if (carry > 0) {
+            tail.next = new ListNode(carry);
+        }
+        return head;
+    }
+    /**
+     * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+     * 请你将两个数相加，并以相同形式返回一个表示和的链表。
+     * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+     * 自己的思路，太繁琐了
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode head = null;
+        int carry = 0;
+        ListNode cur = head;
+        while (l2 != null && l1 != null) {
+            int num = l2.val + l1.val + carry;
+            ListNode tmp = new ListNode(num%10);
+            if (head == null) {
+                head = tmp;
+                cur = head;
+            } else {
+                cur.next = tmp;
+                cur = cur.next;
+            }
+            if (num > 9) {
+                carry = 1;
+            } else {
+                carry = 0;
+            }
+            l2 = l2.next;
+            l1 = l1.next;
+        }
+        while (l1 != null || (l2 == null && carry != 0)) {
+            if (carry == 0) {
+                cur.next = l1;
+                break;
+            } else {
+                int num = carry;
+                if (l1 != null) {
+                    num += l1.val;
+                }
+                ListNode tmp = new ListNode(num%10);
+                cur.next = tmp;
+                cur = cur.next;
+                if (num > 9) {
+                    carry = 1;
+                } else {
+                    carry = 0;
+                }
+                if (l1 == null && carry == 0) {
+                    break;
+                }
+                l1 = l1.next;
+            }
+        }
+        while (l2 != null || (l1 == null && carry != 0)) {
+            if (carry == 0) {
+                cur.next = l2;
+                break;
+            }else {
+                int num = carry;
+                if (l2 != null) {
+                    num += l2.val;
+                }
+                ListNode tmp = new ListNode(num%10);
+                cur.next = tmp;
+                cur = cur.next;
+                if (num > 9) {
+                    carry = 1;
+                } else {
+                    carry = 0;
+                }
+                if (l2 == null && carry == 0) {
+                    break;
+                }
+                l2 = l2.next;
+            }
+        }
+        return head;
+    }
+
+    public static void main7(String[] args) {
+        ListNode l1 = new ListNode(9);
+        ListNode l2 = new ListNode(9);
+        ListNode tmp1 = new ListNode(9);
+        ListNode tmp2 = new ListNode(9);
+        ListNode tmp3 = new ListNode(9);
+        ListNode tmp4 = new ListNode(9);
+        ListNode tmp5 = new ListNode(9);
+        ListNode tmp6 = new ListNode(9);
+        ListNode tmp7 = new ListNode(9);
+        ListNode tmp8 = new ListNode(9);
+        ListNode tmp9 = new ListNode(9);
+        ListNode tmp10 = new ListNode(9);
+        l1.next = tmp1;
+        tmp1.next = tmp2;
+        tmp2.next = tmp3;
+        tmp3.next = tmp4;
+        tmp4.next = tmp5;
+        tmp5.next = tmp6;
+        l2.next = tmp7;
+        tmp7.next = tmp8;
+        tmp8.next = tmp9;
+        tmp9.next = tmp10;
+        ListNode ret = addTwoNumbers(l2, l1);
+        System.out.println(ret);
+    }
+
     public static List<String> topKFrequent(String[] words, int k) {
         //1.统计每个单词出现的次数
         Map<String, Integer> map = new HashMap<>();
@@ -63,7 +259,7 @@ public class TestDemo {
         return ret;
     }
 
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         String[] worlds = {"i","love","leetcode","i","love","coding"};
         int k = 1;
         List<String> ret = topKFrequent(worlds, k);
@@ -214,6 +410,7 @@ public class TestDemo {
         set.add(2);
         set.add(3);
         set.add(1);
+        set.add(null);
         System.out.println(set);
 
         Iterator<Integer> integerIterator = set.iterator();
@@ -221,6 +418,26 @@ public class TestDemo {
             System.out.println(integerIterator.next());
         }
         //LinkedHashSet<>
+
+        Set<Integer> set2 = new TreeSet<>();
+        set2.add(1);
+        set2.add(2);
+        set2.add(3);
+        set2.add(1);
+        //set2.add(null);
+        System.out.println(set2);
+        Iterator<Integer> integerIterator2 = set2.iterator();
+        while (integerIterator2.hasNext()) {
+            System.out.println(integerIterator2.next());
+        }
+
+        Set<String> set3 = new LinkedHashSet<>();
+        set3.add("a");
+        set3.add("b");
+        set3.add("c");
+        set3.add("a");
+        set3.add(null);
+        System.out.println(set3);
     }
 
     public static void main1(String[] args) {
@@ -237,18 +454,28 @@ public class TestDemo {
         for (Map.Entry<String, Integer> entry : entrySet) {
             System.out.println(entry.getKey() + "->" + entry.getValue());
         }
+        System.out.println("=============================");
 
-        /*
+        Map<String, Integer> map2 = new TreeMap<>();
+        map2.put("afr", 3);
+        map2.put("bat", 2);
+        map2.put("bat", 4);
+        map2.put("hello", 4);
+        //map2.put(null, null); key不能为空，会报空指针异常
+        System.out.println(map2);
+
+        Set<Map.Entry<String, Integer>> entrySet2 = map2.entrySet();
+        for (Map.Entry<String, Integer> entry: entrySet2) {
+            System.out.println(entry.getKey() + "->" + entry.getValue());
+        }
+
         Set<String> set = map.keySet();//set这个集合当中 存储的元素都是不重复的
         System.out.println(set);
-         */
-        /*
         int ret = map.get("bat");//通过key获取对应的value值
         System.out.println(ret);
         System.out.println(map.getOrDefault("bat2", 98));//没获取到key值就给你一个默认值
         Integer ret2 = map.remove("bat");
         System.out.println(ret2);
         System.out.println(map);
-         */
     }
 }
