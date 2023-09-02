@@ -13,7 +13,7 @@ public class TestSort {
     /**
      * 排序默认是从小到大排序
      * 插入排序：
-     * 时间复杂度：O(N^2) ：逆序的时候（最快的情况下），最好的情况下，数据有序时时间复杂度是O(N)
+     * 时间复杂度：O(N^2) ：逆序的时候（最坏的情况下），最好的情况下，数据有序时时间复杂度是O(N)
      *      根据这个结论推导出另一个结论：对于直接插入排序来说，数据越有序，越快
      *      一般情况下，直接插入排序可以用于一些区间比较
      * 空间复杂度：O(1)
@@ -259,7 +259,7 @@ public class TestSort {
             return ;
         }
 
-        //如果区间之内的数据，在排序的过程中，小于某个范围，直接使用插入排序
+        //如果区间之内的数据个数，在排序的过程中，小于某个范围，直接使用插入排序
         if (right - left + 1 <= 140) {
             //使用直接插入排序
             insertSort2(array, left, right);
@@ -334,7 +334,7 @@ public class TestSort {
             stack.push(left);
             stack.push(pivot-1);
         }
-        if (pivot > right - 1) {
+        if (pivot < right - 1) {
             //右边至少有两个元素
             //如果右边只有一个元素，说明只有一个值比pivot大，那么这个值已经有序了
             stack.push(pivot+1);
@@ -351,7 +351,7 @@ public class TestSort {
                 stack.push(left);
                 stack.push(pivot-1);
             }
-            if (pivot > right - 1) {
+            if (pivot < right - 1) {
                 //右边至少有2个元素
                 stack.push(pivot+1);
                 stack.push(right);
@@ -516,7 +516,7 @@ public class TestSort {
         System.out.println(Arrays.toString(array1));
 
         int[] array2 = {12,5,18,77,31,5,10,4,2,86,9,7};
-        insertSort(array2);
+        mergeSort(array2);
         System.out.println(Arrays.toString(array2));
 
         int[] array3 = {12,5,18,77,31,5,10,4,2,86,9,7};
@@ -542,5 +542,9 @@ public class TestSort {
         int[] array8 = {12,5,18,77,31,5,10,4,2,86,9,7};
         countSort(array8);
         System.out.println(Arrays.toString(array8));
+
+        int[] array9 = {12,5,18,77,31,5,10,4,2,86,9,7};
+        quickSort(array9);
+        System.out.println(Arrays.toString(array9));
     }
 }
