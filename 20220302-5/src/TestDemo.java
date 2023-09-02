@@ -32,8 +32,8 @@ public class TestDemo {
     //二维数组的打印
     public static void main21(String[] args) {
         int[][] array = {{1,2,3,4}, {5,6,7,8}};
-        //System.out.println(array.length);
-        //System.out.println(array[0].length);
+        System.out.println(array.length);
+        System.out.println(array[0].length);
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
@@ -166,8 +166,8 @@ public class TestDemo {
      */
     public static boolean isUp(int[] array) {
         boolean ret = true;
-        for (int i = 0; i < array.length; i++) {
-            if (i < array.length - 1 && array[i] > array[i+1]) {
+        for (int i = 0; i < array.length-1; i++) {
+            if (array[i] > array[i+1]) {
                 ret = false;
                 break;
             }
@@ -202,9 +202,26 @@ public class TestDemo {
         return -1;
     }
     public static void main13(String[] args) {
-        int[] array = {2,3,4,7};
-        System.out.println(binarySearch(array, 14));
-        System.out.println(Arrays.binarySearch(array, 14));
+        int[] array = {2,3,4,7,10,11};
+        System.out.println(binarySearch(array, 5));
+        /*
+        [1] 搜索值不是数组元素，且在数组范围内，从1开始计数，得“ - 插入点索引值”；
+        [2] 搜索值是数组元素，从0开始计数，得搜索值的索引值；
+        [3] 搜索值不是数组元素，且小于数组内元素，索引值为 – 1；
+        [4] 搜索值不是数组元素，且大于数组内元素，索引值为 – (length + 1);
+         */
+        System.out.println(Arrays.binarySearch(array, 5));
+        /*
+        [1] 该搜索键在范围内，但不是数组元素，由1开始计数，得“ - 插入点索引值”；
+        [2] 该搜索键在范围内，且是数组元素，由0开始计数，得搜索值的索引值；
+        [3] 该搜索键不在范围内，且小于范围（数组）内元素，返回–(fromIndex + 1)；
+        [4] 该搜索键不在范围内，且大于范围（数组）内元素，返回 –(toIndex + 1)。
+         */
+        System.out.println(Arrays.binarySearch(array, 1,5,5));//-4
+        System.out.println(Arrays.binarySearch(array, 1,5,1));//-2
+        System.out.println(Arrays.binarySearch(array, 1,5,15));//-6
+        System.out.println(Arrays.binarySearch(array, 1,5,7));//3
+
     }
     /**
      * 查找数组中指定元素(顺序查找)
@@ -315,7 +332,7 @@ public class TestDemo {
     }
     public static void main7(String[] args) {
         int[] array1 = {1,2,3,4,5};
-        //int[] array2 = array1;
+        int[] array2 = array1;
         array1 = new int[10];
         array1 = new int[2];
         array1 = new int[5];
@@ -329,8 +346,8 @@ public class TestDemo {
     public static void main6(String[] args) {
         int[] array = {1,2,3,4,5,6};
         System.out.println(Arrays.toString(array));
-        func1(array);
-        //func2(array);
+        //func1(array);
+        func2(array);
         System.out.println(Arrays.toString(array));
     }
     public static void main5(String[] args) {
@@ -347,6 +364,7 @@ public class TestDemo {
         int[] array = null;//这个引用不指向任何对象
         System.out.println(array.length);
     }
+    //打印数组
     public static void main3(String[] args) {
         int[] array = {1,2,3,4,5};
         for (int i = 0; i < array.length; i++) {
@@ -361,8 +379,8 @@ public class TestDemo {
         System.out.println();
 
         //借助java操作数组的工具类 Arrays.toString :将参数的数组以字符串形式打印
-        //String ret = Arrays.toString(array);
-        //System.out.println(ret);
+        String ret = Arrays.toString(array);
+        System.out.println(ret);
         System.out.println(Arrays.toString(array));
     }
 
