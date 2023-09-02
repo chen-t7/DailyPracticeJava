@@ -8,6 +8,8 @@
 
 import java.util.ArrayList;
 
+import static javafx.scene.input.KeyCode.T;
+
 /**
  * 问题：
  * 1.该类只能存放整数类型的数据，不通用
@@ -42,7 +44,7 @@ class MyArrayList1 {
 
 /**
  *
- * @param <E> 代表当前类是一个泛型类，此时的E就是一个占位符而已
+ * @param <E> 代表当前类是一个泛型类，此时的E是一个占位符
  */
 class MyArrayList2<E> {
     private E[] elem;
@@ -63,8 +65,8 @@ class MyArrayList2<E> {
     }
 
     /*
-    public T[] getArray(int size) {
-        T[] genericArray = new T[size];
+    public E[] getArray(int size) {
+        E[] genericArray = new E[size];
         return genericArray;
     }
      */
@@ -83,8 +85,7 @@ public class TestDemo {
 
     public static void main5(String[] args) {
         MyArrayList2<String> myArrayList2 = new MyArrayList2<>();
-        //String[] rets = (String[])myArrayList2.getArray(10);
-
+        String[] rets = (String[])myArrayList2.getArray(10);
     }
 
     public static void main4(String[] args) {

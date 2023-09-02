@@ -22,6 +22,10 @@ class Student {
         this.score = score;
     }
 
+    public Student() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -94,7 +98,7 @@ class MyArrayList<E> {
         //1.计算出需要的容量
         int capacity = calculateCapacity(this.elementData, minCapacity);
         //2.拿着计算出的容量去和数组的大小比较，满了扩容，空的分配内存
-        ensureExplicitCapacity(minCapacity);
+        ensureExplicitCapacity(capacity);
     }
 
     private void ensureExplicitCapacity(int minCapacity) {
@@ -106,11 +110,11 @@ class MyArrayList<E> {
     }
 
     private static int calculateCapacity(Object[] elementData, int minCapacity) {
-        //1.先判断elementData数组之前是否分配过的大小
+        //1.先判断elementData数组之前是否分配过的大小;没分配过，比较usedSize+1和10的大小并返回所需容量
         if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
             return Math.max(10, minCapacity);
         }
-        //2.分配过，就返回+1后的值
+        //2.分配过，就返回usedSize+1后的值
         return minCapacity;
     }
 
@@ -166,12 +170,12 @@ class MyArrayList<E> {
         this.elementData[index] = e;
     }
 
-
-
-    private void rangeCheck(int index) {
-        if (index < 0 || index > this.size()) {
-            throw new IndexOutOfBoundsException("index下标不合法，无法删除");
-        }
+    @Override
+    public String toString() {
+        return "MyArrayList{" +
+                "elementData=" + Arrays.toString(elementData) +
+                ", usedSize=" + usedSize +
+                '}';
     }
 }
 
@@ -237,11 +241,13 @@ public class TestDemo4 {
         myArrayList.add(0, 99);
         myArrayList.add(2,88);
         myArrayList.add(6,77);
+        System.out.println(myArrayList);
 
 
         MyArrayList<String> myArrayList2 = new MyArrayList<String>(9);
         myArrayList2.add("chen");
         myArrayList2.add("chen1");
         myArrayList2.add("chen2");
+        System.out.println(myArrayList2.toString());
     }
 }
