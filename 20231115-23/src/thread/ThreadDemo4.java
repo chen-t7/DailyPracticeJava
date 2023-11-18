@@ -10,7 +10,7 @@ import java.util.concurrent.Semaphore;
  * Time: 16:32
  */
 public class ThreadDemo4 {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main1(String[] args) throws InterruptedException {
         Semaphore semaphore = new Semaphore(3);
         semaphore.acquire(2);
         System.out.println("执行一次P操作");
