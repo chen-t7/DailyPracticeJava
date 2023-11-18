@@ -49,6 +49,8 @@ class MyTimer {
     //有一个阻塞优先级队列，来保存任务
     private PriorityBlockingQueue<MyTask> queue = new PriorityBlockingQueue<>();
 
+    //专门使用这个对象来进行加锁/等待通知
+    private Object locker = new Object();
     public MyTimer() {
         t = new Thread(() -> {
             while (true) {
@@ -59,15 +61,16 @@ class MyTimer {
                     //阻塞队列只能先把队列拿出来才能判定，不像普通队列，可以直接用队首元素进行判定
                     //如果一直取出放进去的都是同一个Task，就会出现忙等现象
                     //不想进行忙等了，而是要进行“阻塞式”等待
-                    //随时可能有心得任务到来（随时有可能有线程调用schedule添加新任务），如果新任务更早用sleep会错过新任务的执行时间
+                    //随时可能有新的任务到来（随时有可能有线程调用schedule添加新任务），如果新任务更早用sleep会错过新任务的执行时间
                     //使用带超时时间的wait
-                    synchronized (this) {
+                    synchronized (locker) {
                         MyTask myTask = queue.take();
                         long curTime = System.currentTimeMillis();
                         if (curTime < myTask.getTime()) {
                             //还没到点，不必执行
                             queue.put(myTask);
-                            this.wait(myTask.getTime()-curTime);
+                            //不放新元素就阻塞式等待，到时间就执行队首元素任务
+                            locker.wait(myTask.getTime()-curTime);
                         } else {
                             myTask.run();
                         }
@@ -86,8 +89,9 @@ class MyTimer {
         //要对时间进行换算
         MyTask myTask = new MyTask(runnable, System.currentTimeMillis() + after);
         queue.put(myTask);
-        synchronized (this) {
-            this.notify();
+        synchronized (locker) {
+            //放入新元素时唤醒队列，让队首元素重新进行比较，看看队首元素是否到时间执行
+            locker.notify();
         }
     }
 }

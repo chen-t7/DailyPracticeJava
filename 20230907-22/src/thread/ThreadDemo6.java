@@ -8,6 +8,7 @@ package thread;
  * Time: 15:36
  */
 public class ThreadDemo6 {
+
     public static void main(String[] args) {
         Thread t = new Thread(new Runnable() {
             @Override

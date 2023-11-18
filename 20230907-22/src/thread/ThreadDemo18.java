@@ -1,5 +1,7 @@
 package thread;
 
+import java.util.jar.JarOutputStream;
+
 /**
  * Created with IntelliJ IDEA.
  * Description
@@ -9,6 +11,7 @@ package thread;
  */
 
 public class ThreadDemo18 {
+
     //有三个线程，分别只能打印A,B,C，控制三个线程固定按照ABC的顺序来打印
     public static void main(String[] args) throws InterruptedException {
         Object locker1 = new Object();

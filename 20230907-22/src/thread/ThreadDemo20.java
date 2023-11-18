@@ -11,9 +11,8 @@ package thread;
 class SingletonLazy {
     private volatile static SingletonLazy instance = null;
 
-
     //这个实例并非是类加载的时候就创建了，而是等到第一次使用的时候才创建，如果不用就不创建了
-    //线程不安全
+    //线程不安全版本
     /*
     public static SingletonLazy getInstance() {
         //既要读又要写，线程不安全的
@@ -23,14 +22,12 @@ class SingletonLazy {
         return instance;
     }
      */
-    //线程安全
+    //线程安全版本
     //每次调用getInstance()都需要加锁，开销太大；对象创建以后调用getInstance()都是读操作，没必要每次加锁
     /*
-    public static SingletonLazy getInstance() {
-        synchronized (Singleton.class) {
-            if (instance == null) {
-                instance = new SingletonLazy();
-            }
+    public synchronized static SingletonLazy getInstance() {
+        if (instance == null) {
+            instance = new SingletonLazy();
         }
         return instance;
     }

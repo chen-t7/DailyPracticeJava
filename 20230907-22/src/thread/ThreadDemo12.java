@@ -8,7 +8,7 @@ package thread;
  * Time: 14:53
  */
 //通过这个代码可以看到，多线程和单线程相比，效率的提升
-    //多线程，在这种CPU密集型的任务中，有非常大的作用，可以充分利用CPU的多喝自愿，从而加快程序的运行效率
+    //多线程，在这种CPU密集型的任务中，有非常大的作用，可以充分利用CPU的多核资源，从而加快程序的运行效率
     //不是说多线程一定能提高效率，也取决于当前核心是否多核以及当前核心是否空闲
     //多线程在IO密集型的任务重，也是有作用的（客户端开发中比较常见）
 public class ThreadDemo12 {
@@ -34,7 +34,7 @@ public class ThreadDemo12 {
             b++;
         }
         long end = System.currentTimeMillis();
-        System.out.println("执行时间： " + (end - beg) + "ms");
+        System.out.println("串行执行时间： " + (end - beg) + "ms");
     }
 
     //使用两个线程分别完成自增

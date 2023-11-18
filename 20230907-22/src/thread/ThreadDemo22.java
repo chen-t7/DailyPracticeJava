@@ -27,7 +27,6 @@ public class ThreadDemo22 {
             }
 
         });
-
         customer.start();
 
         Thread product = new Thread(() -> {

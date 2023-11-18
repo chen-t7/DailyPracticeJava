@@ -22,15 +22,15 @@ public class ThreadDemo9 {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     //1.忽略请求，不处理
-                    e.printStackTrace();
+                    //e.printStackTrace();
                     //2.稍后处理
-                    /*
+
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException interruptedException) {
                         interruptedException.printStackTrace();
                     }
-                     */
+
                     //3.立即响应终止请求
                     //break;
                 }
@@ -46,7 +46,7 @@ public class ThreadDemo9 {
         t.interrupt();
         //（但是sleep在唤醒的时候，还会做一件事，把刚才设置的标志位再设置为false（清空了标志位）
         //这就导致，sleep的异常被catch完了之后，循环还要继续执行，所以会再次打印
-        //为啥sleep要清楚标志位？
+        //为啥sleep要清除标志位？
         //唤醒之后，线程到底要终止，还是不要，要立即终止还是稍后，把选择权交给程序员自己
     }
 }

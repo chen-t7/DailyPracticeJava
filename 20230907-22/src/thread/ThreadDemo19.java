@@ -11,7 +11,7 @@ package thread;
 //饿汉模式--单例模式实现
     //保证Singleton只能创建出一个实例
 class Singleton{
-    //在此处，先把实例创建出来了
+    //类加载的同时创建实例
     private static Singleton instance = new Singleton();
 
     //如果我们需要使用唯一实例，统一通过Singleton.getInstance()方式获取

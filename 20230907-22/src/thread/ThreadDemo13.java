@@ -10,12 +10,11 @@ package thread;
 class Counter {
     public int count;
 
-
     //加锁，synchronized 获取不到锁，就阻塞等待（锁竞争/锁冲突）
     //synchronized 使用方法：
     //          1.修饰方法
     //            1)修饰普通方法  都是进入方法就加锁，离开方法就解锁
-    //            2)修饰静态方法  这两种操作，加锁的“对象”不同锁对象相同，就会产生锁竞争，产生阻塞等待，锁对象不同就不会产生锁竞争
+    //            2)修饰静态方法  这两种操作，加锁的“对象”不同。锁对象相同，就会产生锁竞争，产生阻塞等待，锁对象不同就不会产生锁竞争
     //              [修饰普通方法，锁对象就是this，修饰静态方法，锁对象就是类对象，修饰代码块，显示/手动指定锁对象]
     //          2.修饰代码块
 
@@ -25,7 +24,7 @@ class Counter {
     }
 
     public void add2() {
-        //修饰代码块，这里的this可以任务指定你想要指定的对象，也不一定非得是this
+        //修饰代码块，这里的this可以任意指定你想要指定的对象，也不一定非得是this
         //进入代码块就加锁，出了代码块就解锁
         synchronized (this) {
             count++;
@@ -49,6 +48,7 @@ class Counter {
             count++;
         }
     }
+
 }
 
 public class ThreadDemo13 {
@@ -66,7 +66,7 @@ public class ThreadDemo13 {
 
         Thread t2 = new Thread(() -> {
             for (int i = 0; i < 50000; i++) {
-                counter.add2();
+                counter.add4();
             }
         });
 

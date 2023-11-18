@@ -12,7 +12,7 @@ public class ThreadDemo11 {
     public static void main(String[] args) throws InterruptedException {
         Thread t = new Thread(() -> {
             for (int i = 0; i < 100; i++) {
-                //这个循环体啥也不干，也不sleep,获取到的时间是RUNNABLE
+                //这个循环体啥也不干，也不sleep,获取到的状态是RUNNABLE
                 //加上sleep，线程状态有可能是RUNNABLE   也可能是TIMED_WAITING
                 try {
                     Thread.sleep(10);

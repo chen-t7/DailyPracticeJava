@@ -10,7 +10,7 @@ package thread;
 public class ThreadDemo14 {
     //死锁破解方法：给多把锁编号，按照固定顺序加锁；
     // 线程t1和线程t2，都先拿locker1，线程t1拿到locker1之后，线程t2进行阻塞等待，直至t1释放locker1
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Object locker1 = new Object();
         Object locker2 = new Object();
 
@@ -46,7 +46,7 @@ public class ThreadDemo14 {
     }
 
     //死锁。两个线程两把锁，t1和t2各自现针对锁A和锁B加锁，再尝试获取对方的锁。
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         Object locker1 = new Object();
         Object locker2 = new Object();
 
