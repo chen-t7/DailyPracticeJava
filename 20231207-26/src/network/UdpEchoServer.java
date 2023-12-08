@@ -41,7 +41,7 @@ public class UdpEchoServer {
             //字节数组作为存储数据的缓冲区。此处给的最大长度是4096，但是这里的空间不一定满了，可能只使用了一小部分
             //因此构造字符串，哪些用了就构造哪部分，就通过getLength获取到实际的数据报的长度，只把实际的有效部分给构造成字符串即可
             String request = new String(requestPacket.getData(), 0, requestPacket.getLength());
-            //2.根据请求计算响应，此处有浴室回显服务器，响应和请求相同
+            //2.根据请求计算响应，此处由于是回显服务器，响应和请求相同
             String response = process(request);
             //3.把响应写回到客户端，send的参数也是DatagramPacket，需要把这个Packet对象构造好。
             //  此处构造的响应对象不能使用空的字节数组构造，而是要用相应数据来构造。
@@ -51,11 +51,20 @@ public class UdpEchoServer {
             DatagramPacket responsePacket = new DatagramPacket(response.getBytes(),
                     response.getBytes().length, requestPacket.getSocketAddress());
             socket.send(responsePacket);
+            //4.打印一下，当前这次请求响应处理的中间结果
+            System.out.printf("[%s:%d] req: %s; resp: %s\n", requestPacket.getAddress().toString(),
+                    requestPacket.getPort(), request, response);
         }
     }
 
     //这个方法表示“根据请求计算响应”
-    private String process(String request) {
+    public String process(String request) {
         return request;
+    }
+
+    public static void main(String[] args) throws IOException {
+        //端口号的指定范围：1024 -> 65535
+        UdpEchoServer udpEchoServer = new UdpEchoServer(9090);
+        udpEchoServer.start();
     }
 }
