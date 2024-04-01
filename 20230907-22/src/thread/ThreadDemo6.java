@@ -9,7 +9,7 @@ package thread;
  */
 public class ThreadDemo6 {
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -39,14 +39,14 @@ public class ThreadDemo6 {
         }
     }
 
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println("hello thread");
             }
         }, "mythread");
-        //t.setDaemon(true);//设置该线程为后台线程
+        t.setDaemon(true);//设置该线程为后台线程
         t.start();
 
         while (true) {

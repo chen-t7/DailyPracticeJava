@@ -1,0 +1,140 @@
+/* 写样式的起手式，先去除浏览器的公共样式，并且设置border-box，避免元素盒子被内边距和边距撑大 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    /* 
+        html是页面的最顶层元素，高度100% 是相对父元素来说高度是100%（和父元素一样高）
+        对于html标签来说，父元素就是浏览器窗口，浏览器窗口多高，html就多高。
+        body的父亲是html，设为100%意思是body和html一样高。
+        此时，body和html的高度都适合浏览器窗口一样高的
+
+        如果不设置高度，此时元素的默认高度取决于内部的内容。
+     */
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    /* 相对路径的基准路径就是当前文件所在路径！！ */
+    background-image: url(../image/背景图2.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* 实现导航栏的样式 */
+.nav {
+    /* 设置宽度和父元素一样宽 */
+    /* 块级元素来说，默认就是  width: 100%; */
+    width: 100%;
+    height: 50px;
+    /* rgba 设置透明度 */
+    background-color: rgba(51, 62, 109, 0.4);
+    color: white;
+    /* 导航栏里面的元素都是水平排列，弹性布局来设置 */
+    display: flex;
+    /* 垂直方向子元素居中 */
+    align-items: center;
+}
+
+.nav img {
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+    margin-right: 10px;
+    /* 把头像切圆 */
+    border-radius: 50%;
+}
+
+.nav a {
+    color: white;
+    /* 去下划线 */
+    text-decoration: none;
+    /* 为了让这几个a标签不要贴的这么紧凑，加上个内边距
+        此处使用外边距也行，内边距更好，内边距也是元素的内容，可以增大用户点击的面积 */
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.nav .spacer {
+    width: 800px;
+}
+
+/* 编辑主体部分 */
+.container {
+    width: 1000px;
+    /* 使用calc计算高度 */
+    height: calc(100% - 50px);
+    /* background-color: grey; */
+    /* 居中 */
+    margin: 0 auto;
+    /* 使用弹性布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 左侧信息 */
+.container-left {
+    width: 200px;
+    height: 100%;
+    /* background-color: red; */
+}
+
+/* 右侧信息 */
+.container-right {
+    width: 790px;
+    height: 100%;
+    /* background-color: blue; */
+
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+
+    /* 让这个元素自己能带上滚动条 */
+    /* 这个属性表示，内容没有溢出，无滚动条；内容溢出了，则自动加上滚动条 */
+    overflow: auto;
+}
+
+/* 左侧用户信息 */
+.card {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    /* 设置内边距，让内容和边距之间有点距离 */
+    padding: 30px;
+}
+
+/* 用户头像 */
+.card img{
+    width:140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+.card h3 {
+    /* 文字水平居中 */
+    text-align: center;
+    /* 设置内边距 */
+    padding: 10px;
+}
+
+.card a {
+    /* a标签是行内元素，行内元素的很多东西比较膈应 */
+    text-align: center;
+    /* 把a设置成块级元素 */
+    display: block;
+    color: grey;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.card .counter {
+    /* 弹性布局 */
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+}
+

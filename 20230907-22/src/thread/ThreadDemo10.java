@@ -1,6 +1,5 @@
 package thread;
 
-import jdk.management.resource.internal.inst.ThreadRMHooks;
 
 /**
  * Created with IntelliJ IDEA.

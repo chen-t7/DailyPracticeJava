@@ -26,7 +26,7 @@ class MyThread extends Thread{
 
 public class ThreadDemo1 {
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         Thread t = new MyThread();
         //new一个Thread对象不创建线程（说的线程指的是系统内核里的PCB），调用start才是创建PCB，才是有真实的线程的
         t.start();

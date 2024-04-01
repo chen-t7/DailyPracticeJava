@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客列表</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/blog_list.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav">
+        <img src="image/图标.jpeg" alt="">
+        <span>小陈的博客系统</span>
+        <!-- 这个标签仅用于水平占位，把这几个a标签挤到右边去 -->
+        <div class="spacer"></div>
+        <a href="blog_list">主页</a>
+        <a href="blog_edit.html">写博客</a>
+        <a href="logout">注销</a>
+    </div>
+    <!-- 页面主题部分 -->
+    <div class="container">
+        <!-- 左侧部分 -->
+        <div class="container-left">
+            <!-- 用户信息 -->
+            <div class="card">
+                <!-- 用户头像 -->
+                <img src="image/用户头像.jpg" alt="">
+                <!-- 用户昵称 -->
+                <h3>小陈的账号</h3>
+                <!-- 用户github地址 -->
+                <a href="#">我的github地址</a>
+                <div class="counter">
+                    <span>文章</span>
+                    <span>分类</span>
+                </div>
+                <div class="counter">
+                    <span>2</span>
+                    <span>1</span>
+                </div>
+            </div>
+        </div>
+        <!-- 右侧部分 -->
+        <div class="container-right">
+            <!-- 表示一篇博客 (样例, 最后删除) -->
+            
+            
+        </div>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        function getBlogs() {
+            $.ajax({
+                type: 'get',
+                url: 'blog',
+                success: function(body) {
+                    // 相应的正文是一个json字符串，此处已经被jquery自动解析成js对象数组了
+                    // 直接for循环遍历即可
+                    let ContainerRight = document.querySelector('.container-right')
+                    for (let blog of body) {
+                        // 构造页面内容
+                        // 构造整个博客div
+                        let blogDiv = document.createElement('div');
+                        blogDiv.className = 'blog';
+                        // 构造标题
+                        let titleDiv = document.createElement('div');
+                        titleDiv.className = 'title';
+                        titleDiv.innerHTML = blog.title;
+                        blogDiv.appendChild(titleDiv);
+                        // 构造发布时间
+                        let dateDiv = document.createElement('div');
+                        dateDiv.className = 'date';
+                        dateDiv.innerHTML = blog.updateTime;
+                        blogDiv.appendChild(dateDiv);
+                        // 构造博客摘要
+                        let descDiv =document.createElement('div');
+                        descDiv.className = 'desc';
+                        descDiv.innerHTML = blog.content;
+                        blogDiv.appendChild(descDiv);
+                        // 构造查看全文标签
+                        let a = document.createElement('a');
+                        a.innerHTML = '查看全文 &gt;&gt;';
+                        //期望点击之后能跳转到博客详情页,为了让博客详情页知道是点了哪个博客，把blogId传过去
+                        a.href = 'blog_detail.html?blogId=' + blog.blogId;
+                        blogDiv.appendChild(a);
+
+                        //把blogDiv加到父元素中
+                        ContainerRight.appendChild(blogDiv);
+                    }
+                }
+            })
+        }
+        //调用
+        getBlogs();
+
+        function checkLogin() {
+            $.ajax({
+                type:'get',
+                url:'login',
+                success: function(body) {
+                    if (body.userId && body.userId > 0) {
+                        // 登录成功
+                        console.log("当前用户已经登录！！");
+                        //加上个功能，把当前用户的名字显示到界面上
+                        let h3 = document.querySelector('.container-left .card h3');
+                        h3.innerHTML = body.username;
+
+                    } else {
+                        // 当前未登录
+                        // 强制跳转到登录页
+                        location.assign('login.html');
+                    }
+                }
+            })
+        }
+        checkLogin();
+    </script>
+</body>
+</html>

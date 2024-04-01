@@ -1,0 +1,50 @@
+/* 博客编辑页 */
+.blog-edit-container {
+    width: 1000px;
+    height: calc(100% - 50px);
+    /* 水平居中 */
+    margin: 0 auto;
+}
+
+.blog-edit-container .title {
+    height: 50px;
+    display: flex;
+    /* 垂直居中 */
+    align-items: center;
+    justify-content: space-between;
+}
+
+#title {
+    height: 40px;
+    width: 890px;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    /* 去除轮廓线，鼠标选中后内框黑圈 */
+    outline: none;
+    padding-left: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* 获取到焦点 */
+#title:focus {
+    background-color: white;
+}
+
+#submit {
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(235, 169, 46);
+    color: white;
+}
+
+#submit:active {
+    background-color: grey;
+}
+
+#editor {
+    border-radius: 10px;
+    opacity: 90%;
+}

@@ -24,13 +24,11 @@ public class ThreadDemo9 {
                     //1.忽略请求，不处理
                     //e.printStackTrace();
                     //2.稍后处理
-
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(500);
                     } catch (InterruptedException interruptedException) {
                         interruptedException.printStackTrace();
                     }
-
                     //3.立即响应终止请求
                     //break;
                 }

@@ -9,7 +9,7 @@ package thread;
  */
 public class ThreadDemo11 {
     //线程状态转移
-    public static void main(String[] args) throws InterruptedException {
+    public static void main2(String[] args) throws InterruptedException {
         Thread t = new Thread(() -> {
             for (int i = 0; i < 100; i++) {
                 //这个循环体啥也不干，也不sleep,获取到的状态是RUNNABLE
@@ -35,7 +35,7 @@ public class ThreadDemo11 {
         System.out.println("t结束之后： " + t.getState());
     }
 
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         //线程的六种状态
         for (Thread.State state : Thread.State.values()) {
             System.out.println(state);

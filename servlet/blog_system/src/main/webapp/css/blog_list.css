@@ -1,0 +1,46 @@
+/* 博客列表样式 */
+.blog {
+    width: 100%;
+    padding: 20px;
+}
+
+.blog .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.blog .date {
+    color: green;
+    text-align: center;
+}
+
+.blog .desc {
+    padding: 10px;
+    text-indent: 2em;
+}
+
+.blog a {
+    /* 设置为块级元素 */
+    display: block;
+    border: 2px solid black;
+    width: 120px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    color: black;
+    /* 去除下划线 */
+    text-decoration: none;
+    text-align: center;
+    /* 让文字水平居中 */
+    line-height: 40px;
+    /* 给鼠标悬停加个过滤效果 */
+    transition: all 0.8s;
+}
+
+.blog a:hover {
+    color: white;
+    background-color: #666;
+}

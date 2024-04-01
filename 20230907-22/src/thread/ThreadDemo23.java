@@ -20,7 +20,7 @@ class MyBlockingQueue {
     public void put(int value) throws InterruptedException {
         synchronized (this) {
             //队列满了，不能继续插入，需要进行阻塞等待
-            //if (size == items.length) { //为啥不用if?用while写是进行了二次判定
+            //if (size == items.length) { //为啥不用if?用while写是进行了多次判定，满了就一直等待，if只能判定一次
             while (size == items.length) {
                 //return;
                 this.wait();

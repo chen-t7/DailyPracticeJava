@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客详情页</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/blog_detail.css">
+    <link rel="stylesheet" href="editor.md/css/editormd.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav">
+        <img src="image/图标.jpeg" alt="">
+        <span class="title">小陈的博客系统</span>
+        <!-- 这个标签仅用于水平占位，把这几个a标签挤到右边去 -->
+        <div class="spacer"></div>
+        <a href="blog_list">主页</a>
+        <a href="blog_edit.html">写博客</a>
+        <a href="logout">注销</a>
+    </div>
+    <!-- 页面主题部分 -->
+    <div class="container">
+        <!-- 左侧部分 -->
+        <div class="container-left">
+            <!-- 用户信息 -->
+            <div class="card">
+                <!-- 用户头像 -->
+                <img src="image/用户头像.jpg" alt="">
+                <!-- 用户昵称 -->
+                <h3>小陈的账号</h3>
+                <!-- 用户github地址 -->
+                <a href="#">我的github地址</a>
+                <div class="counter">
+                    <span>文章</span>
+                    <span>分类</span>
+                </div>
+                <div class="counter">
+                    <span>2</span>
+                    <span>1</span>
+                </div>
+            </div>
+        </div>
+        <!-- 右侧部分 -->
+        <div class="container-right">
+            <h3 class="title"></h3>
+            <div class="date"></div>
+            <!-- 博客正文，为了配合editormd进行格式转换，此处务必改成id -->
+            <div id="content">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <!-- 引入editor.md 的依赖 要保证这个几个js的加载在jquery之后，editor.md依赖了jquery -->
+    <script src="editor.md/lib/marked.min.js"></script>
+    <script src="editor.md/lib/prettify.min.js"></script>
+    <script src="editor.md/editormd.js"></script>
+    <script>
+        $.ajax({
+            type:'get',
+            url:'blog' + location.search,
+            success:function(body) {
+                //处理响应结果，此处的body就是表示一个博客的js对象
+                //1.更新标题
+                let titleDiv = document.querySelector('.container-right .title');
+                titleDiv.innerHTML = body.title;
+                //2.更新日期
+                let dateDiv = document.querySelector('.date');
+                dateDiv.innerHTML = body.updateTime;
+                //3.更新博客正文
+                //此处不应该直接把博客正文填充到这个标签里
+                editormd.markdownToHTML('content', { markdown: body.content });
+            }
+        })
+
+        function checkLogin() {
+            $.ajax({
+                type:'get',
+                url:'login',
+                success: function(body) {
+                    if (body.userId && body.userId > 0) {
+                        // 登录成功
+                        console.log("当前用户已经登录！！");
+                    } else {
+                        // 当前未登录
+                        // 强制跳转到登录页
+                        location.assign('login.html');
+                    }
+                }
+            })
+        }
+        checkLogin();
+
+        //函数定义
+        function getAuthor() {
+            $.ajax({
+                type: 'get',
+                url: 'author' + location.search,
+                success:function(body) {
+                    //把username设置到界面上
+                    let h3 = document.querySelector('.container-left .card h3');
+                    h3.innerHTML = body.username;
+                }
+            })
+        }
+        //函数调用
+        getAuthor();
+    </script>
+</body>
+</html>
